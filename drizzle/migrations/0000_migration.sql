@@ -1,0 +1,14 @@
+CREATE TABLE public.tasks (id text PRIMARY KEY, data jsonb NOT NULL, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE public.point_events (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), profile text NOT NULL, points int NOT NULL, category text NOT NULL, kind text NOT NULL, at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE public.custom_categories (name text PRIMARY KEY, created_at timestamptz NOT NULL DEFAULT now());
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.tasks, public.custom_categories TO anon, authenticated;
+GRANT SELECT, INSERT ON public.point_events TO anon, authenticated;
+GRANT ALL ON public.tasks, public.point_events, public.custom_categories TO service_role;
+ALTER TABLE public.tasks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.point_events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.custom_categories ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "shared household tasks" ON public.tasks FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "read points" ON public.point_events FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "add points" ON public.point_events FOR INSERT TO anon, authenticated WITH CHECK (profile IN ('Minna','Joel') AND points BETWEEN 0 AND 1000);
+CREATE POLICY "shared categories" ON public.custom_categories FOR ALL TO anon, authenticated USING (true) WITH CHECK (length(name) BETWEEN 1 AND 40);
+ALTER PUBLICATION supabase_realtime ADD TABLE public.tasks, public.point_events, public.custom_categories;
