@@ -31,3 +31,4 @@ use the editor.
 
 ## Project rules
 - Task logic (points, recurrence, due grouping) lives in pure functions in src/lib/sambo-logic.ts with tests; the store only applies them. Why: rules stay testable.
+- Shared household data (tasks, points, categories) lives in Lovable Cloud with open access and live updates; the active profile is per device. Why: no login was requested.
