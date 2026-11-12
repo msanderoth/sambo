@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Task logic (points, recurrence, due grouping) lives in pure functions in src/lib/sambo-logic.ts with tests; the store only applies them. Why: rules stay testable.
