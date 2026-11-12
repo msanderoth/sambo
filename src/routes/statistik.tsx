@@ -13,7 +13,7 @@ const PEOPLE: Profile[] = ["Minna", "Joel"];
 function Stats() {
   const { points, tasks } = useSambo();
   const total = (p: Profile) => points.filter((e) => e.profile === p).reduce((s, e) => s + e.points, 0);
-  const totals = PEOPLE.map(total);
+  const totals: [number, number] = [total("Minna"), total("Joel")];
   const max = Math.max(1, ...totals);
   const cats = Array.from(new Set(points.map((e) => e.category)));
   const leader = totals[0] === totals[1] ? "Lika!" : totals[0] > totals[1] ? "Minna leder" : "Joel leder";

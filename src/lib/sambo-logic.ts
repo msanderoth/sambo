@@ -3,22 +3,22 @@ export type Profile = "Minna" | "Joel";
 export type RecurrenceKind =
   | "daily" | "weekly" | "monthly" | "quarterly" | "yearly" | "after_completion" | "custom";
 export interface Recurrence { kind: RecurrenceKind; days?: number }
-export interface ListItem { id: string; text: string; done: boolean }
+export interface ListItem { id: string | undefined; text: string; done: boolean }
 export interface Task {
   id: string;
   title: string;
   type: TaskType;
-  category?: string;
-  subcategory?: string;
-  description?: string;
+  category?: string | undefined;
+  subcategory?: string | undefined;
+  description?: string | undefined;
   items: ListItem[];
-  dueDate?: string; // yyyy-mm-dd
-  recurrence?: Recurrence;
+  dueDate?: string | undefined; // yyyy-mm-dd
+  recurrence?: Recurrence | undefined;
   relatedIds: string[];
   createdBy: Profile;
   createdAt: string;
-  completedBy?: Profile;
-  completedAt?: string;
+  completedBy?: Profile | undefined;
+  completedAt?: string | undefined;
 }
 export interface PointEvent { profile: Profile; points: number; category: string; kind: "create" | "complete"; at: string }
 
@@ -46,7 +46,7 @@ function fmt(d: Date) {
   const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, "0"), da = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${da}`;
 }
-function parse(s: string) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+function parse(s: string) { const [y = 0, m = 1, d = 1] = s.split("-").map(Number); return new Date(y, m - 1, d); }
 
 /** Next due date when a recurring task is completed. */
 export function nextDueDate(r: Recurrence, dueDate: string | undefined, completedOn: Date): string {

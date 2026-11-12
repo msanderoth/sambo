@@ -36,7 +36,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
 
   const submit = () => {
     const r = titleSchema.safeParse(title);
-    if (!r.success) { setError(r.error.issues[0].message); return; }
+    if (!r.success) { setError(r.error.issues[0]?.message ?? "Titel krävs"); return; }
     const kind = rec === NONE ? undefined : (rec as RecurrenceKind);
     actions.createTask({
       title: r.data, type,
