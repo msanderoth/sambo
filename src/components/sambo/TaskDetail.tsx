@@ -28,7 +28,7 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
                 <ul className="space-y-2">
                   {task.items.map((i) => (
                     <li key={i.id} className="flex items-center gap-3">
-                      <Checkbox id={i.id} checked={i.done} onCheckedChange={() => actions.toggleItem(task.id, i.id)} />
+                      <Checkbox id={i.id} checked={i.done} onCheckedChange={() => actions.toggleItem(task!.id, i.id)} />
                       <label htmlFor={i.id} className={i.done ? "line-through opacity-60" : ""}>{i.text}</label>
                     </li>
                   ))}
