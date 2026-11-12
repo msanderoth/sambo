@@ -14,7 +14,7 @@ export const Route = createFileRoute("/backlog")({
 function Backlog() {
   const { tasks } = useSambo();
   const [sel, setSel] = useState<string | null>(null);
-  const open = tasks.filter((t) => !t.dueDate && !t.completedAt);
+  const open = tasks.filter((t) => !t.dueDate && !t.completedAt && t.type !== "shopping");
   const started = open.filter(isStarted), notStarted = open.filter((t) => !isStarted(t));
   return (
     <Page title="Backlog">

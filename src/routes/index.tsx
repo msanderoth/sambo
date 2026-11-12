@@ -15,7 +15,7 @@ const ORDER: DueGroup[] = ["Försenat", "Idag", "Imorgon", "Den här veckan", "S
 function Index() {
   const { tasks } = useSambo();
   const [sel, setSel] = useState<string | null>(null);
-  const dated = tasks.filter((t) => t.dueDate && !t.completedAt).sort((a, b) => a.dueDate!.localeCompare(b.dueDate!));
+  const dated = tasks.filter((t) => t.dueDate && !t.completedAt && t.type !== "shopping").sort((a, b) => a.dueDate!.localeCompare(b.dueDate!));
   const today = new Date();
   return (
     <Page title="Tidsbegränsat">
