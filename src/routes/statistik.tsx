@@ -24,7 +24,7 @@ function Stats() {
           {PEOPLE.map((p, i) => (
             <div key={p}>
               <div className="flex justify-between text-sm font-semibold"><span>{p}</span><span>{totals[i]} p</span></div>
-              <div className="mt-1 h-3 rounded-full bg-background"><div className="h-3 rounded-full bg-primary" style={{ width: `${(totals[i] / max) * 100}%` }} /></div>
+              <div className="mt-1 h-3 rounded-full bg-background"><div className="h-3 rounded-full bg-primary" style={{ width: `${((totals[i] ?? 0) / max) * 100}%` }} /></div>
             </div>
           ))}
         </div>
