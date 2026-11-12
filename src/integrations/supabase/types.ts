@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      custom_categories: {
+        Row: {
+          created_at: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      point_events: {
+        Row: {
+          at: string
+          category: string
+          id: string
+          kind: string
+          points: number
+          profile: string
+        }
+        Insert: {
+          at?: string
+          category: string
+          id?: string
+          kind: string
+          points: number
+          profile: string
+        }
+        Update: {
+          at?: string
+          category?: string
+          id?: string
+          kind?: string
+          points?: number
+          profile?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
