@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BacklogRouteImport } from './routes/backlog'
+import { Route as InkopslistorRouteImport } from './routes/inkopslistor'
+import { Route as KategorierRouteImport } from './routes/kategorier'
+import { Route as StatistikRouteImport } from './routes/statistik'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BacklogRoute = BacklogRouteImport.update({
+  id: '/backlog',
+  path: '/backlog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InkopslistorRoute = InkopslistorRouteImport.update({
+  id: '/inkopslistor',
+  path: '/inkopslistor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KategorierRoute = KategorierRouteImport.update({
+  id: '/kategorier',
+  path: '/kategorier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatistikRoute = StatistikRouteImport.update({
+  id: '/statistik',
+  path: '/statistik',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/backlog': typeof BacklogRoute
+  '/inkopslistor': typeof InkopslistorRoute
+  '/kategorier': typeof KategorierRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/backlog': typeof BacklogRoute
+  '/inkopslistor': typeof InkopslistorRoute
+  '/kategorier': typeof KategorierRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/backlog': typeof BacklogRoute
+  '/inkopslistor': typeof InkopslistorRoute
+  '/kategorier': typeof KategorierRoute
+  '/statistik': typeof StatistikRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik'
+  id:
+    | '__root__'
+    | '/'
+    | '/backlog'
+    | '/inkopslistor'
+    | '/kategorier'
+    | '/statistik'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BacklogRoute: typeof BacklogRoute
+  InkopslistorRoute: typeof InkopslistorRoute
+  KategorierRoute: typeof KategorierRoute
+  StatistikRoute: typeof StatistikRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/backlog': {
+      id: '/backlog'
+      path: '/backlog'
+      fullPath: '/backlog'
+      preLoaderRoute: typeof BacklogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inkopslistor': {
+      id: '/inkopslistor'
+      path: '/inkopslistor'
+      fullPath: '/inkopslistor'
+      preLoaderRoute: typeof InkopslistorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kategorier': {
+      id: '/kategorier'
+      path: '/kategorier'
+      fullPath: '/kategorier'
+      preLoaderRoute: typeof KategorierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/statistik': {
+      id: '/statistik'
+      path: '/statistik'
+      fullPath: '/statistik'
+      preLoaderRoute: typeof StatistikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BacklogRoute: BacklogRoute,
+  InkopslistorRoute: InkopslistorRoute,
+  KategorierRoute: KategorierRoute,
+  StatistikRoute: StatistikRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

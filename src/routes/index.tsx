@@ -1,23 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Page } from "@/components/sambo/AppShell";
+import { TaskCard, Section, EmptyState } from "@/components/sambo/TaskCard";
+import { TaskDetail } from "@/components/sambo/TaskDetail";
+import { useSambo } from "@/lib/sambo-store";
+import { dueGroup, type DueGroup } from "@/lib/sambo-logic";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({ meta: [{ title: "Tidsbegränsat – SAMBO" }, { name: "description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:title", content: "Tidsbegränsat – SAMBO" }, { property: "og:description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }] }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const ORDER: DueGroup[] = ["Försenat", "Idag", "Imorgon", "Den här veckan", "Senare"];
 function Index() {
+  const { tasks } = useSambo();
+  const [sel, setSel] = useState<string | null>(null);
+  const dated = tasks.filter((t) => t.dueDate && !t.completedAt).sort((a, b) => a.dueDate!.localeCompare(b.dueDate!));
+  const today = new Date();
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <Page title="Tidsbegränsat">
+      {dated.length === 0 && <EmptyState text="Inga uppgifter med slutdatum ännu. Tryck på + för att skapa en." />}
+      {ORDER.map((g) => {
+        const list = dated.filter((t) => dueGroup(t.dueDate!, today) === g);
+        return list.length ? <Section key={g} title={g}>{list.map((t) => <TaskCard key={t.id} task={t} onOpen={(x) => setSel(x.id)} />)}</Section> : null;
+      })}
+      <TaskDetail taskId={sel} onClose={() => setSel(null)} />
+    </Page>
   );
 }
