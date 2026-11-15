@@ -7,7 +7,7 @@ import { useSambo } from "@/lib/sambo-store";
 import { dueGroup, type DueGroup } from "@/lib/sambo-logic";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "Tidsbegränsat – SAMBO" }, { name: "description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:title", content: "Tidsbegränsat – SAMBO" }, { property: "og:description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }] }),
+  head: () => ({ meta: [{ title: "Tidsbegränsat – SAMBO" }, { name: "description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:title", content: "Tidsbegränsat – SAMBO" }, { property: "og:description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Index,
 });
 
