@@ -7,7 +7,7 @@ import { useSambo } from "@/lib/sambo-store";
 import { isStarted } from "@/lib/sambo-logic";
 
 export const Route = createFileRoute("/backlog")({
-  head: () => ({ meta: [{ title: "Backlog – SAMBO" }, { name: "description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:title", content: "Backlog – SAMBO" }, { property: "og:description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }] }),
+  head: () => ({ meta: [{ title: "Backlog – SAMBO" }, { name: "description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:title", content: "Backlog – SAMBO" }, { property: "og:description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Backlog,
 });
 

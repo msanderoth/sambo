@@ -6,7 +6,7 @@ import { TaskDetail } from "@/components/sambo/TaskDetail";
 import { useSambo } from "@/lib/sambo-store";
 
 export const Route = createFileRoute("/inkopslistor")({
-  head: () => ({ meta: [{ title: "Inköpslistor – SAMBO" }, { name: "description", content: "Alla era gemensamma inköpslistor på ett ställe." }, { property: "og:title", content: "Inköpslistor – SAMBO" }, { property: "og:description", content: "Alla era gemensamma inköpslistor på ett ställe." }] }),
+  head: () => ({ meta: [{ title: "Inköpslistor – SAMBO" }, { name: "description", content: "Alla era gemensamma inköpslistor på ett ställe." }, { property: "og:title", content: "Inköpslistor – SAMBO" }, { property: "og:description", content: "Alla era gemensamma inköpslistor på ett ställe." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Shopping,
 });
 

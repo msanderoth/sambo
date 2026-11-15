@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { CalendarClock, ClipboardCheck, ListChecks, LayoutGrid, History, Plus } from "lucide-react";
 import { actions, useSambo } from "@/lib/sambo-store";
 import { CreateTaskDialog } from "./CreateTaskDialog";
+import samboLogo from "@/assets/sambo-logo.svg.asset.json";
 
 const NAV = [
   { to: "/", icon: CalendarClock, label: "Tidsbegränsat" },
@@ -18,7 +19,7 @@ export function Page({ title, children }: { title: string; children: ReactNode }
   return (
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-3">
       <header className="relative mb-4 text-center">
-        <p className="font-display text-5xl leading-none tracking-tight">SAMBO</p>
+        <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto max-w-[calc(100%-6rem)] object-contain" />
         <h1 className="text-xl font-bold uppercase">{title}</h1>
         <button
           onClick={actions.toggleProfile}
