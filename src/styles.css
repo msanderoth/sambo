@@ -39,6 +39,8 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --font-sans: "Figtree", system-ui, sans-serif;
   --font-display: "Titan One", "Figtree", sans-serif;
+  --font-profile: "Hammersmith One", sans-serif;
+  --color-profile-letter: var(--profile-letter);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -97,6 +99,7 @@
   --input: oklch(0.8 0.05 300);
   --ring: oklch(0.42 0.14 300);
   --nav-active: oklch(0.931 0.021 304); /* #EBE5F4 */
+  --profile-letter: oklch(0.9221256154 0.0365102489 155.3976147714); /* #D3EDDB */
   --chart-1: oklch(0.42 0.14 300);
   --chart-2: oklch(0.6 0.12 158);
   --chart-3: oklch(0.7 0.1 305);
