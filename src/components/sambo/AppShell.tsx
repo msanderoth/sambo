@@ -24,7 +24,7 @@ export function Page({ title, children }: { title: string; children: ReactNode }
         <button
           onClick={actions.toggleProfile}
           aria-label={`Aktiv profil: ${profile}. Byt profil`}
-          className="absolute right-0 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-profile text-lg font-normal text-profile-letter"
+          className="absolute right-0 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-profile text-2xl font-normal text-profile-letter"
         >
           {profile[0]}
         </button>
