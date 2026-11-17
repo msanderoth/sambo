@@ -47,3 +47,17 @@ describe("sambo rules", () => {
     expect(showsOnBacklog(task({}))).toBe(true);
   });
 });
+
+import { weekdayLabel } from "./sambo-logic";
+import { describe as d2, it as i2, expect as e2 } from "vitest";
+d2("weekdayLabel", () => {
+  const today = new Date(2026, 10, 17); // tisdag
+  i2("shows weekday within 6 days", () => {
+    e2(weekdayLabel("2026-11-17", today)).toBe("Tisdag");
+    e2(weekdayLabel("2026-11-23", today)).toBe("Måndag");
+  });
+  i2("shows date beyond 6 days or in the past", () => {
+    e2(weekdayLabel("2026-11-24", today)).toBeNull();
+    e2(weekdayLabel("2026-11-16", today)).toBeNull();
+  });
+});

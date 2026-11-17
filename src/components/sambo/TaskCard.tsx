@@ -1,5 +1,6 @@
 import { HistoryIcon as History } from "./icons";
 import { format } from "date-fns";
+import { weekdayLabel } from "@/lib/sambo-logic";
 import { sv } from "date-fns/locale";
 import type { Task } from "@/lib/sambo-logic";
 import { CategoryIcon } from "./icons";
@@ -17,7 +18,7 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (t: Task) => vo
       {showMeta && (
         <div className="mt-2 grid grid-cols-[auto_1fr_auto] items-center gap-2 text-sm">
           <span>{task.items.length > 0 && <span className="rounded-full bg-accent px-2 py-0.5 font-semibold">{done}/{task.items.length}</span>}</span>
-          <span className="text-center">{task.dueDate && format(new Date(task.dueDate + "T00:00"), "d MMMM yyyy", { locale: sv })}</span>
+          <span className="text-center">{task.dueDate && (weekdayLabel(task.dueDate, new Date()) ?? format(new Date(task.dueDate + "T00:00"), "d MMMM yyyy", { locale: sv }))}</span>
           <span>{task.recurrence && <History className="h-5 w-5" />}</span>
         </div>
       )}

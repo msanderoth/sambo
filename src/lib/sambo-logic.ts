@@ -87,3 +87,14 @@ export function showsOnTimed(t: Task): boolean {
 export function showsOnBacklog(t: Task): boolean {
   return !t.completedAt && t.type !== "shopping";
 }
+
+const WEEKDAYS_SV = ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"];
+/** Weekday name if due 0–6 days ahead, otherwise null (caller shows full date). */
+export function weekdayLabel(dueDate: string, today: Date): string | null {
+  const t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const d = parse(dueDate);
+  const diff = Math.round((d.getTime() - t.getTime()) / 86400000);
+  if (diff < 0 || diff > 6) return null;
+  const n = WEEKDAYS_SV[d.getDay()];
+  return n[0].toUpperCase() + n.slice(1);
+}
