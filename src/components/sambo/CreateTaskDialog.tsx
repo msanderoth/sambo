@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { z } from "zod";
 import { CalendarMonthIcon } from "./icons";
@@ -31,6 +31,16 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [days, setDays] = useState(7);
   const [related, setRelated] = useState<string[]>([]);
   const [error, setError] = useState("");
+  const descRef = useRef<HTMLTextAreaElement>(null);
+
+  // Beskrivningsfältet växer med texten, har minimihöjd 80px och kan inte dras i storlek.
+  useEffect(() => {
+    const el = descRef.current;
+    if (!el) return;
+    const border = el.offsetHeight - el.clientHeight;
+    el.style.height = "auto";
+    el.style.height = `${Math.max(80, el.scrollHeight + border)}px`;
+  }, [description, open]);
 
   const reset = () => { setTitle(""); setType("task"); setCategory(NONE); setSub(NONE); setDescription(""); setItems([]); setNewItem(""); setDueDate(""); setRec(NONE); setDays(7); setRelated([]); setError(""); };
   const addItem = () => { if (newItem.trim()) { setItems([...items, newItem.trim()]); setNewItem(""); } document.getElementById("new-item")?.focus(); };
@@ -83,7 +93,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
           </div>
           <div className="mt-8 space-y-1">
             <Label htmlFor="desc" className="text-base font-semibold">Beskrivning</Label>
-            <Textarea id="desc" className="task-sheet-field h-20 min-h-20 resize-y rounded-[20px] py-3" value={description} maxLength={1000} onChange={(e) => setDescription(e.target.value)} />
+            <Textarea id="desc" ref={descRef} className="task-sheet-field min-h-20 resize-none rounded-[20px] py-3" value={description} maxLength={1000} onChange={(e) => setDescription(e.target.value)} />
           </div>
           <div className="mt-8 space-y-1">
             <Label htmlFor="new-item" className="text-base font-semibold">Lista</Label>
