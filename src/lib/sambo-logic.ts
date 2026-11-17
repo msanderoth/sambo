@@ -95,6 +95,6 @@ export function weekdayLabel(dueDate: string, today: Date): string | null {
   const d = parse(dueDate);
   const diff = Math.round((d.getTime() - t.getTime()) / 86400000);
   if (diff < 0 || diff > 6) return null;
-  const n = WEEKDAYS_SV[d.getDay()];
-  return n[0].toUpperCase() + n.slice(1);
+  const n = WEEKDAYS_SV[d.getDay()] ?? "";
+  return n.charAt(0).toUpperCase() + n.slice(1);
 }
