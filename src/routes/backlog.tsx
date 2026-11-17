@@ -4,7 +4,7 @@ import { Page } from "@/components/sambo/AppShell";
 import { TaskCard, Section, EmptyState } from "@/components/sambo/TaskCard";
 import { TaskDetail } from "@/components/sambo/TaskDetail";
 import { useSambo } from "@/lib/sambo-store";
-import { isStarted } from "@/lib/sambo-logic";
+import { isStarted, showsOnBacklog } from "@/lib/sambo-logic";
 
 export const Route = createFileRoute("/backlog")({
   head: () => ({ meta: [{ title: "Backlog – SAMBO" }, { name: "description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:title", content: "Backlog – SAMBO" }, { property: "og:description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/backlog")({
 function Backlog() {
   const { tasks } = useSambo();
   const [sel, setSel] = useState<string | null>(null);
-  const open = tasks.filter((t) => !t.dueDate && !t.completedAt && t.type !== "shopping");
+  const open = tasks.filter(showsOnBacklog);
   const started = open.filter(isStarted), notStarted = open.filter((t) => !isStarted(t));
   return (
     <Page title="Backlog">

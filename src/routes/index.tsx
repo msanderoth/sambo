@@ -4,7 +4,7 @@ import { Page } from "@/components/sambo/AppShell";
 import { TaskCard, Section, EmptyState } from "@/components/sambo/TaskCard";
 import { TaskDetail } from "@/components/sambo/TaskDetail";
 import { useSambo } from "@/lib/sambo-store";
-import { dueGroup, type DueGroup } from "@/lib/sambo-logic";
+import { dueGroup, showsOnTimed, type DueGroup } from "@/lib/sambo-logic";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [{ title: "Tidsbegränsat – SAMBO" }, { name: "description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:title", content: "Tidsbegränsat – SAMBO" }, { property: "og:description", content: "Uppgifter med slutdatum, sorterade efter vad som är närmast." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
@@ -15,7 +15,7 @@ const ORDER: DueGroup[] = ["Försenat", "Idag", "Imorgon", "Den här veckan", "S
 function Index() {
   const { tasks } = useSambo();
   const [sel, setSel] = useState<string | null>(null);
-  const dated = tasks.filter((t) => t.dueDate && !t.completedAt && t.type !== "shopping").sort((a, b) => a.dueDate!.localeCompare(b.dueDate!));
+  const dated = tasks.filter(showsOnTimed).sort((a, b) => a.dueDate!.localeCompare(b.dueDate!));
   const today = new Date();
   return (
     <Page title="Tidsbegränsat">

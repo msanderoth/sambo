@@ -77,3 +77,13 @@ export function dueGroup(dueDate: string, today: Date): DueGroup {
 }
 
 export function isStarted(t: Task) { return t.items.some((i) => i.done); }
+
+/** Tidsbegränsat: every open task that has a due date, shopping lists included. */
+export function showsOnTimed(t: Task): boolean {
+  return !t.completedAt && !!t.dueDate;
+}
+
+/** Backlog: every open task, with or without a due date, shopping lists included. */
+export function showsOnBacklog(t: Task): boolean {
+  return !t.completedAt;
+}
