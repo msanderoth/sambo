@@ -33,7 +33,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [error, setError] = useState("");
 
   const reset = () => { setTitle(""); setType("task"); setCategory(NONE); setSub(NONE); setDescription(""); setItems([]); setNewItem(""); setDueDate(""); setRec(NONE); setDays(7); setRelated([]); setError(""); };
-  const addItem = () => { if (newItem.trim()) { setItems([...items, newItem.trim()]); setNewItem(""); } };
+  const addItem = () => { if (newItem.trim()) { setItems([...items, newItem.trim()]); setNewItem(""); } document.getElementById("new-item")?.focus(); };
 
   const submit = () => {
     const r = titleSchema.safeParse(title);
