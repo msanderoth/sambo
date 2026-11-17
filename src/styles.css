@@ -137,7 +137,13 @@
 }
 
 .task-sheet-field > svg { opacity: 1; height: 20px; width: 20px; }
-textarea.task-sheet-field { border-radius: 20px; }
+textarea.task-sheet-field {
+  border-radius: 20px;
+  resize: none;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .task-sheet-field::placeholder { color: var(--task-ink); }
 .task-sheet-date::-webkit-calendar-picker-indicator { opacity: 0; width: 20px; cursor: pointer; }
 
