@@ -31,8 +31,11 @@ describe("sambo rules", () => {
   it("completed shopping list with a due date does not show on Tidsbegränsat", () => {
     expect(showsOnTimed(task({ type: "shopping", dueDate: "2026-11-18", completedAt: "2026-11-17T12:00:00Z" }))).toBe(false);
   });
-  it("shopping list without a due date shows in Backlog", () => {
-    expect(showsOnBacklog(task({ type: "shopping" }))).toBe(true);
+  it("shopping list without a due date does not show in Backlog", () => {
+    expect(showsOnBacklog(task({ type: "shopping" }))).toBe(false);
+  });
+  it("shopping list with a due date does not show in Backlog", () => {
+    expect(showsOnBacklog(task({ type: "shopping", dueDate: "2026-11-18" }))).toBe(false);
   });
   it("timed task shows in Backlog", () => {
     expect(showsOnBacklog(task({ dueDate: "2026-11-18" }))).toBe(true);

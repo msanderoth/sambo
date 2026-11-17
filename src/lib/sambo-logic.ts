@@ -83,7 +83,7 @@ export function showsOnTimed(t: Task): boolean {
   return !t.completedAt && !!t.dueDate;
 }
 
-/** Backlog: every open task, with or without a due date, shopping lists included. */
+/** Backlog: every open task with or without a due date, except shopping lists. */
 export function showsOnBacklog(t: Task): boolean {
-  return !t.completedAt;
+  return !t.completedAt && t.type !== "shopping";
 }
