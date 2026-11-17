@@ -57,9 +57,10 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
   const pillButton = "h-10 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90";
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-0 max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-y-auto rounded-t-[20px] border-0 bg-task-sheet px-4 pb-4 pt-5 text-task-ink shadow-none sm:bottom-4 sm:max-h-[calc(100dvh-32px)] sm:rounded-[20px] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
+      <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-0 max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-hidden rounded-t-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:bottom-4 sm:max-h-[calc(100dvh-32px)] sm:rounded-[20px] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
+        <div className="max-h-[calc(100dvh-140px)] overflow-y-auto px-4 pb-20 pt-5 sm:max-h-[calc(100dvh-32px)]">
         <DialogHeader className="mb-7 sm:text-center"><DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">Ny uppgift</DialogTitle></DialogHeader>
-        <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
+        <form id="create-task-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
           <div className="space-y-2">
             <Label htmlFor="title" className="text-base font-semibold">Titel</Label>
             <Input id="title" className="task-sheet-field" value={title} maxLength={120} onChange={(e) => { setTitle(e.target.value); setError(""); }} autoFocus aria-invalid={!!error} aria-describedby={error ? "title-error" : undefined} />
@@ -127,8 +128,9 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
               </PopoverContent>
             </Popover>
           </div>
-          <div className="mt-8 flex justify-end"><Button type="submit" className={pillButton}>Spara</Button></div>
         </form>
+        </div>
+        <Button type="submit" form="create-task-form" className={`${pillButton} absolute bottom-4 right-4 z-10`}>Spara</Button>
       </DialogContent>
     </Dialog>
   );
