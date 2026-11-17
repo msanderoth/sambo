@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { CalendarDays, ChevronDown, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { z } from "zod";
+import { CalendarMonthIcon } from "./icons";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -102,7 +103,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
               <Label htmlFor="due" className="text-base font-semibold">Slutdatum</Label>
               <div className="relative">
                 <Input id="due" className="task-sheet-field task-sheet-date pr-4" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-                <CalendarDays aria-hidden="true" className="pointer-events-none absolute right-4 top-2 h-6 w-6" />
+                <CalendarMonthIcon aria-hidden="true" className="pointer-events-none absolute right-4 top-2 h-6 w-6" />
               </div>
             </div>
             <div className="min-w-0 space-y-1">
