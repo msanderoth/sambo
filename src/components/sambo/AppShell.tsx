@@ -32,7 +32,7 @@ export function Page({ title, children }: { title: string; children: ReactNode }
       </header>
       <main className="space-y-6">{children}</main>
       <button onClick={() => setOpen(true)} aria-label="Ny uppgift" className="fixed bottom-24 right-[max(1rem,calc(50%-12rem))] z-20 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-        <Plus className="h-8 w-8" />
+        <Plus className="h-8 w-8 text-profile-letter" />
       </button>
       <nav className="fixed bottom-4 left-1/2 z-20 flex w-[calc(100%-2rem)] max-w-[22rem] -translate-x-1/2 justify-between rounded-full bg-secondary px-5 py-2">
         {NAV.map(({ to, icon: I, label }) => (
