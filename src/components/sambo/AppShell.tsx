@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { CalendarClock, ClipboardCheck, ListChecks, LayoutGrid, History, Plus } from "lucide-react";
+import { TimedTasksIcon as CalendarClock, UntimedTasksIcon as ClipboardCheck, ShoppingListsIcon as ListChecks, CategoriesIcon as LayoutGrid, HistoryIcon as History } from "./icons";
+import { Plus } from "lucide-react";
 import { actions, useSambo } from "@/lib/sambo-store";
 import { CreateTaskDialog } from "./CreateTaskDialog";
 import samboLogo from "@/assets/sambo-logo.svg.asset.json";

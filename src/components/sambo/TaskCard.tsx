@@ -1,4 +1,4 @@
-import { History } from "lucide-react";
+import { HistoryIcon as History } from "./icons";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import type { Task } from "@/lib/sambo-logic";

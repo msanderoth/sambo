@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, SquarePlus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Page } from "@/components/sambo/AppShell";
 import { TaskCard, Section, EmptyState } from "@/components/sambo/TaskCard";
 import { TaskDetail } from "@/components/sambo/TaskDetail";
-import { CategoryIcon } from "@/components/sambo/icons";
+import { CategoryIcon, AddBoxIcon as SquarePlus } from "@/components/sambo/icons";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { actions, useSambo } from "@/lib/sambo-store";
