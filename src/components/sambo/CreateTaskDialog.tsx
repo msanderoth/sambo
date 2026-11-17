@@ -57,8 +57,8 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
   const pillButton = "h-10 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90";
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-0 block max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-hidden rounded-t-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:bottom-4 sm:max-h-[calc(100dvh-32px)] sm:rounded-[20px] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
-        <div className="max-h-[calc(100dvh-140px)] overflow-y-auto px-4 pb-20 pt-5 sm:max-h-[calc(100dvh-32px)]">
+      <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-4 block max-h-[calc(100dvh-156px)] w-full max-w-md translate-y-0 gap-0 overflow-clip rounded-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:max-h-[calc(100dvh-32px)] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
+        <div className="max-h-[calc(100dvh-156px)] overflow-y-auto px-4 pb-20 pt-5 sm:max-h-[calc(100dvh-32px)]">
         <DialogHeader className="mb-7 sm:text-center"><DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">Ny uppgift</DialogTitle></DialogHeader>
         <form id="create-task-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
           <div className="space-y-2">
