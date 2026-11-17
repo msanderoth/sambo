@@ -75,10 +75,20 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-nav-active: var(--nav-active);
+  --color-task-sheet: var(--task-sheet);
+  --color-task-field: var(--task-field);
+  --color-task-ink: var(--task-ink);
+  --color-dialog-scrim: var(--dialog-scrim);
+  --shadow-task-field: 0 3px 4px var(--task-field-shadow);
 }
 
 :root {
   --radius: 0.5rem;
+  --task-sheet: oklch(0.88634 0.04997 156.06);
+  --task-field: oklch(0.92213 0.03651 155.40);
+  --task-ink: oklch(0.431 0.135 301);
+  --dialog-scrim: oklch(0.25 0.025 158 / 0.45);
+  --task-field-shadow: oklch(0.5 0.05 156 / 0.15);
   --background: oklch(0.89 0.045 158);
   --foreground: oklch(0.38 0.14 300);
   --card: oklch(0.93 0.035 158);
@@ -106,6 +116,29 @@
   --chart-4: oklch(0.8 0.1 90);
   --chart-5: oklch(0.65 0.15 30);
 }
+
+.dark {
+  --task-sheet: oklch(0.28 0.035 156);
+  --task-field: oklch(0.35 0.04 156);
+  --task-ink: oklch(0.85 0.08 301);
+  --task-field-shadow: oklch(0.1 0.02 156 / 0.3);
+}
+
+.task-sheet-field {
+  height: 40px;
+  min-width: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--task-field);
+  color: var(--task-ink);
+  padding-inline: 16px;
+  font-size: 16px;
+  box-shadow: var(--shadow-task-field);
+}
+
+.task-sheet-field > svg { opacity: 1; height: 20px; width: 20px; }
+.task-sheet-field::placeholder { color: var(--task-ink); }
+.task-sheet-date::-webkit-calendar-picker-indicator { opacity: 0; width: 20px; cursor: pointer; }
 
 @layer base {
   * {
