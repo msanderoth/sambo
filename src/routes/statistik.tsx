@@ -31,10 +31,6 @@ function Stats() {
                 { label: "Skapade", value: tasks.filter((t) => t.createdBy === p).length },
                 { label: "Slutförda", value: tasks.filter((t) => t.completedBy === p).length },
               ]} />
-              <StatsPie title="Poäng" unit="p" slices={[
-                { label: "Skapade", value: points.filter((e) => e.profile === p && e.kind === "create").reduce((s, e) => s + e.points, 0) },
-                { label: "Slutförda", value: points.filter((e) => e.profile === p && e.kind === "complete").reduce((s, e) => s + e.points, 0) },
-              ]} />
             </div>
           ))}
         </div>
