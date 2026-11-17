@@ -53,11 +53,16 @@ import { describe as d2, it as i2, expect as e2 } from "vitest";
 d2("weekdayLabel", () => {
   const today = new Date(2026, 10, 17); // tisdag
   i2("shows weekday within 6 days", () => {
-    e2(weekdayLabel("2026-11-17", today)).toBe("Tisdag");
+    e2(weekdayLabel("2026-11-19", today)).toBe("Torsdag");
     e2(weekdayLabel("2026-11-23", today)).toBe("Måndag");
   });
-  i2("shows date beyond 6 days or in the past", () => {
+  i2("shows idag, imorgon and igår for those three days", () => {
+    e2(weekdayLabel("2026-11-17", today)).toBe("Idag");
+    e2(weekdayLabel("2026-11-18", today)).toBe("Imorgon");
+    e2(weekdayLabel("2026-11-16", today)).toBe("Igår");
+  });
+  i2("shows date beyond 6 days or further back than yesterday", () => {
     e2(weekdayLabel("2026-11-24", today)).toBeNull();
-    e2(weekdayLabel("2026-11-16", today)).toBeNull();
+    e2(weekdayLabel("2026-11-15", today)).toBeNull();
   });
 });
