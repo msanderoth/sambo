@@ -5,6 +5,8 @@ import { Plus } from "lucide-react";
 import { actions, useSambo } from "@/lib/sambo-store";
 import { CreateTaskDialog } from "./CreateTaskDialog";
 import samboLogo from "@/assets/sambo-logo.svg.asset.json";
+import profilM from "@/assets/profil-m.svg.asset.json";
+import profilJ from "@/assets/profil-j.svg.asset.json";
 
 const NAV = [
   { to: "/", icon: CalendarClock, label: "Tidsbegränsat" },
@@ -25,9 +27,9 @@ export function Page({ title, children }: { title: string; children: ReactNode }
         <button
           onClick={actions.toggleProfile}
           aria-label={`Aktiv profil: ${profile}. Byt profil`}
-          className="absolute right-0 top-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-profile text-2xl font-normal text-profile-letter"
+          className="absolute right-0 top-1 h-10 w-10 rounded-full"
         >
-          {profile[0]}
+          <img src={profile === "Minna" ? profilM.url : profilJ.url} alt={profile} width={40} height={40} className="h-10 w-10" />
         </button>
       </header>
       <main className="space-y-6">{children}</main>
