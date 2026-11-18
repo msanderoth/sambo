@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { SamboCheckbox } from "@/components/sambo/SamboCheckbox";
 import { CreateTaskDialog } from "@/components/sambo/CreateTaskDialog";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
                     {task.items.map((i) => (
                       <li key={i.id} className="flex items-center gap-3">
                         <SamboCheckbox id={i.id} checked={i.done} onCheckedChange={() => actions.toggleItem(task.id, i.id)} />
-                        <label htmlFor={i.id} className={i.done ? "line-through opacity-60" : ""}>{i.text}</label>
+                        <label htmlFor={i.id} className={i.done ? "line-through opacity-85" : ""}>{i.text}</label>
                       </li>
                     ))}
                   </ul>
@@ -49,19 +49,45 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
                 {related.length > 0 && (
                   <div>
                     <p className="text-sm font-semibold">Relaterade uppgifter</p>
-                    <ul className="text-sm">{related.map((r) => <li key={r.id}>• {r.title}{r.completedAt ? " ✓" : ""}</li>)}</ul>
+                    <ul className="list-inside list-disc text-sm">
+                      {related.map((r) => (
+                        <li key={r.id}>
+                          {r.title}
+                          {r.completedAt && (
+                            <>
+                              <span className="sr-only"> (klar)</span>
+                              <span aria-hidden="true"> ✓</span>
+                            </>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
                 {task.completedAt ? (
                   <p className="text-sm">Slutförd av {task.completedBy}</p>
                 ) : (
-                  <Button className="h-10 w-full rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90" onClick={() => { actions.completeTask(task.id); toast.success(`+${completionPoints(task)} poäng till ${profile}!`); onClose(); }}>
+                  <Button
+                    className="h-10 w-full rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    onClick={() => { actions.completeTask(task.id); toast.success(`+${completionPoints(task)} poäng till ${profile}!`); onClose(); }}
+                  >
                     Slutför (+{completionPoints(task)} poäng)
                   </Button>
                 )}
                 <div className="flex gap-2">
-                  <Button variant="ghost" className="h-10 flex-1 rounded-full bg-task-field px-4 text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink" onClick={() => setConfirmDelete(true)}>Ta bort</Button>
-                  <Button className="h-10 flex-1 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90" onClick={() => { setEditingTask(task); onClose(); }}>Redigera</Button>
+                  <Button
+                    variant="ghost"
+                    className="h-10 flex-1 rounded-full bg-task-field px-4 text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    onClick={() => setConfirmDelete(true)}
+                  >
+                    Ta bort
+                  </Button>
+                  <Button
+                    className="h-10 flex-1 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    onClick={() => { setEditingTask(task); onClose(); }}
+                  >
+                    Redigera
+                  </Button>
                 </div>
               </div>
             </>
@@ -70,20 +96,22 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
       </Sheet>
       <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
         <DialogContent
-          aria-describedby={undefined}
           className="w-[calc(100%-2rem)] max-w-xs gap-0 rounded-[20px] border-0 bg-task-sheet p-6 text-task-ink shadow-none sm:rounded-[20px] [&>.dialog-dismiss]:hidden"
         >
           <DialogTitle className="text-center text-xl font-bold">Vill du ta bort uppgiften?</DialogTitle>
+          <DialogDescription className="mt-2 text-center text-sm text-task-ink/80">
+            Uppgiften tas bort permanent och kan inte återställas.
+          </DialogDescription>
           <div className="mt-6 flex gap-2">
             <Button
               variant="ghost"
-              className="h-10 flex-1 rounded-full bg-task-field text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink"
+              className="h-10 flex-1 rounded-full bg-task-field text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={() => setConfirmDelete(false)}
             >
               Tillbaka
             </Button>
             <Button
-              className="h-10 flex-1 rounded-full bg-task-ink text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90"
+              className="h-10 flex-1 rounded-full bg-task-ink text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               onClick={remove}
             >
               Ta bort

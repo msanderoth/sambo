@@ -103,10 +103,11 @@
   --muted-foreground: oklch(0.5 0.08 300);
   --accent: oklch(0.86 0.06 305);
   --accent-foreground: oklch(0.38 0.14 300);
-  --destructive: oklch(0.577 0.245 27.325);
+  /* WCAG 2.2 AA compliant >= 4.5:1 contrast against light background & task-sheet */
+  --destructive: oklch(0.48 0.20 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.8 0.05 300);
-  --input: oklch(0.8 0.05 300);
+  --border: oklch(0.75 0.05 300);
+  --input: oklch(0.75 0.05 300);
   --ring: oklch(0.42 0.14 300);
   --nav-active: oklch(0.931 0.021 304); /* #EBE5F4 */
   --profile-letter: oklch(0.9221256154 0.0365102489 155.3976147714); /* #D3EDDB */
@@ -122,6 +123,12 @@
   --task-field: oklch(0.35 0.04 156);
   --task-ink: oklch(0.85 0.08 301);
   --task-field-shadow: oklch(0.1 0.02 156 / 0.3);
+}
+
+html {
+  /* WCAG 2.2 2.4.11 Focus Not Obscured: keeps focused items visible clear of header and fixed bottom nav */
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 9rem;
 }
 
 .task-sheet-field {
@@ -144,7 +151,7 @@ textarea.task-sheet-field {
   scrollbar-width: none;
 }
 textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: none; }
-.task-sheet-field::placeholder { color: var(--task-ink); }
+.task-sheet-field::placeholder { color: var(--task-ink); opacity: 0.8; }
 .task-sheet-date {
   display: block;
   box-sizing: border-box;
@@ -163,7 +170,12 @@ textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: non
   text-align: left;
   margin-inline: 0;
 }
-.task-sheet-date::-webkit-calendar-picker-indicator { opacity: 0; width: 20px; cursor: pointer; }
+.task-sheet-date::-webkit-calendar-picker-indicator {
+  opacity: 0.01;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
 
 @layer base {
   * {
@@ -173,5 +185,10 @@ textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: non
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
   }
 }

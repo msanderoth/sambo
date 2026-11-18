@@ -8,6 +8,7 @@ import { CheckboxCircleIcon, CheckboxFilledIcon } from "./icons";
  * The app's own checkbox: an empty purple ring when unchecked, a solid purple
  * disc when checked. Keeps Radix's checkbox semantics (role, aria-checked,
  * keyboard and label association) and only replaces the drawing.
+ * Target size meets WCAG 2.2 2.5.8 (at least 24x24px).
  */
 const SamboCheckbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -16,7 +17,7 @@ const SamboCheckbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      "relative grid h-5 w-5 shrink-0 cursor-pointer place-content-center rounded-full text-task-ink",
+      "relative grid h-6 w-6 shrink-0 cursor-pointer place-content-center rounded-full text-task-ink",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       "disabled:cursor-not-allowed disabled:opacity-50",
       className,

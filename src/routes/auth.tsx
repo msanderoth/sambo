@@ -61,33 +61,73 @@ function AuthPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col px-4 pt-3 text-task-ink">
+    <main id="main-content" tabIndex={-1} className="mx-auto flex min-h-screen max-w-md flex-col px-4 pt-3 text-task-ink focus:outline-none">
       <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto" />
       <h1 className="mb-7 mt-1 text-center text-xl font-bold uppercase">{mode === "in" ? "Logga in" : "Skapa hushåll"}</h1>
-      <form onSubmit={submit} className="space-y-6">
+      <form onSubmit={submit} className="space-y-6" aria-busy={busy}>
         <div className="space-y-1">
           <Label htmlFor="username" className="text-base font-semibold">{mode === "in" ? "Användarnamn eller e-post" : "Användarnamn"}</Label>
-          <Input id="username" className="task-sheet-field" autoComplete="username" value={username} maxLength={255} onChange={(e) => setUsername(e.target.value)} required />
+          <Input
+            id="username"
+            className="task-sheet-field"
+            autoComplete="username"
+            value={username}
+            maxLength={255}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            aria-invalid={!!error}
+            aria-describedby={error ? "auth-error" : info ? "auth-info" : undefined}
+          />
         </div>
         {mode === "up" && <div className="space-y-1">
           <Label htmlFor="email" className="text-base font-semibold">E-post</Label>
-          <Input id="email" type="email" className="task-sheet-field" autoComplete="email" value={email} maxLength={255} onChange={(e) => setEmail(e.target.value)} required />
+          <Input
+            id="email"
+            type="email"
+            className="task-sheet-field"
+            autoComplete="email"
+            value={email}
+            maxLength={255}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            aria-invalid={!!error}
+            aria-describedby={error ? "auth-error" : info ? "auth-info" : undefined}
+          />
         </div>}
         <div className="space-y-1">
           <Label htmlFor="password" className="text-base font-semibold">Lösenord</Label>
-          <Input id="password" type="password" className="task-sheet-field" autoComplete={mode === "in" ? "current-password" : "new-password"} value={password} maxLength={200} onChange={(e) => setPassword(e.target.value)} required />
+          <Input
+            id="password"
+            type="password"
+            className="task-sheet-field"
+            autoComplete={mode === "in" ? "current-password" : "new-password"}
+            value={password}
+            maxLength={200}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            aria-invalid={!!error}
+            aria-describedby={error ? "auth-error" : info ? "auth-info" : undefined}
+          />
         </div>
-        {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-        {info && <p role="status" className="text-sm">{info}</p>}
+        {error && <p id="auth-error" role="alert" className="text-sm font-medium text-destructive">{error}</p>}
+        {info && <p id="auth-info" role="status" className="text-sm font-medium">{info}</p>}
         <div className="flex items-center justify-between gap-4">
-          <button type="button" className="text-sm underline" onClick={() => { setMode(mode === "in" ? "up" : "in"); setError(""); setInfo(""); }}>
+          <button
+            type="button"
+            className="rounded-sm text-sm underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onClick={() => { setMode(mode === "in" ? "up" : "in"); setError(""); setInfo(""); }}
+          >
             {mode === "in" ? "Nytt hushåll? Skapa konto" : "Har redan konto? Logga in"}
           </button>
-          <Button type="submit" disabled={busy} className="h-10 rounded-full bg-task-ink px-6 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90">
-            {mode === "in" ? "Logga in" : "Skapa"}
+          <Button
+            type="submit"
+            disabled={busy}
+            className="h-10 rounded-full bg-task-ink px-6 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {busy ? "Vänta..." : mode === "in" ? "Logga in" : "Skapa"}
           </Button>
         </div>
       </form>
-    </div>
+    </main>
   );
 }

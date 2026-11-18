@@ -3,7 +3,7 @@ import { ChevronDown, X } from "lucide-react";
 import { z } from "zod";
 import { CalendarMonthIcon } from "./icons";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -86,48 +86,75 @@ export function CreateTaskDialog({ open, onOpenChange, task }: { open: boolean; 
   };
 
   const open_ = tasks.filter((t) => t.id !== task?.id && (!t.completedAt || task?.relatedIds.includes(t.id)));
-  const pillButton = "h-10 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90";
+  const pillButton = "h-10 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-0 block max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-clip rounded-t-[20px] sm:bottom-4 sm:rounded-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:max-h-[calc(100dvh-32px)] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
+      <DialogContent className="task-sheet top-auto bottom-0 block max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-clip rounded-t-[20px] sm:bottom-4 sm:rounded-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:max-h-[calc(100dvh-32px)] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
         <div className="max-h-[calc(100dvh-140px)] overflow-y-auto px-4 pb-4 pt-5 sm:max-h-[calc(100dvh-32px)]">
-        <DialogHeader className="mb-7 sm:text-center"><DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">{task ? "Redigera uppgift" : "Ny uppgift"}</DialogTitle></DialogHeader>
+        <DialogHeader className="mb-7 sm:text-center">
+          <DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">{task ? "Redigera uppgift" : "Ny uppgift"}</DialogTitle>
+          <DialogDescription className="sr-only">{task ? "Formulär för att redigera befintlig uppgift" : "Formulär för att skapa ny uppgift"}</DialogDescription>
+        </DialogHeader>
         <form id="create-task-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
           <div className="space-y-2">
             <Label htmlFor="title" className="text-base font-semibold">Titel</Label>
             <Input id="title" className="task-sheet-field" value={title} maxLength={120} onChange={(e) => { setTitle(e.target.value); setError(""); }} autoFocus aria-invalid={!!error} aria-describedby={error ? "title-error" : undefined} />
-            {error && <p id="title-error" className="text-sm text-destructive">{error}</p>}
-            <div role="group" aria-label="Typ" className="flex h-10 rounded-full bg-task-field shadow-task-field">
-              <Button type="button" aria-pressed={type !== "shopping"} onClick={() => setType("task")} variant="ghost" className={`h-10 flex-1 rounded-full text-base font-normal ${type !== "shopping" ? "bg-task-ink text-task-field hover:bg-task-ink/90 hover:text-task-field" : "text-task-ink hover:bg-task-field"}`}>Uppgift</Button>
-              <Button type="button" aria-pressed={type === "shopping"} onClick={() => setType("shopping")} variant="ghost" className={`h-10 flex-1 rounded-full text-base font-normal ${type === "shopping" ? "bg-task-ink text-task-field hover:bg-task-ink/90 hover:text-task-field" : "text-task-ink hover:bg-task-field"}`}>Inköpslista</Button>
+            {error && <p id="title-error" role="alert" className="text-sm font-medium text-destructive">{error}</p>}
+            <div role="radiogroup" aria-label="Typ av uppgift" className="flex h-10 rounded-full bg-task-field shadow-task-field">
+              <button
+                type="button"
+                role="radio"
+                aria-checked={type !== "shopping"}
+                onClick={() => setType("task")}
+                className={`h-10 flex-1 rounded-full text-base font-normal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${type !== "shopping" ? "bg-task-ink text-task-field hover:bg-task-ink/90 hover:text-task-field" : "text-task-ink hover:bg-task-field"}`}
+              >
+                Uppgift
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={type === "shopping"}
+                onClick={() => setType("shopping")}
+                className={`h-10 flex-1 rounded-full text-base font-normal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${type === "shopping" ? "bg-task-ink text-task-field hover:bg-task-ink/90 hover:text-task-field" : "text-task-ink hover:bg-task-field"}`}
+              >
+                Inköpslista
+              </button>
             </div>
-            <Select value={category} onValueChange={(v) => { setCategory(v); setSub(NONE); }}>
-              <SelectTrigger aria-label="Kategori" className="task-sheet-field"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value={NONE}>Kategori</SelectItem>
-                {[...CATEGORIES, ...customCategories].map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-              </SelectContent>
-            </Select>
-            {category === "Hem" && <Select value={sub} onValueChange={setSub}>
-              <SelectTrigger aria-label="Rum" className="task-sheet-field"><SelectValue /></SelectTrigger>
-              <SelectContent><SelectItem value={NONE}>Rum</SelectItem>{HOME_SUBCATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
-            </Select>}
+            <div className="space-y-1">
+              <Label htmlFor="category-select" className="sr-only">Kategori</Label>
+              <Select value={category} onValueChange={(v) => { setCategory(v); setSub(NONE); }}>
+                <SelectTrigger id="category-select" aria-label="Kategori" className="task-sheet-field"><SelectValue placeholder="Kategori" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NONE}>Ingen kategori</SelectItem>
+                  {[...CATEGORIES, ...customCategories].map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            {category === "Hem" && (
+              <div className="space-y-1">
+                <Label htmlFor="sub-select" className="sr-only">Rum</Label>
+                <Select value={sub} onValueChange={setSub}>
+                  <SelectTrigger id="sub-select" aria-label="Rum" className="task-sheet-field"><SelectValue placeholder="Rum" /></SelectTrigger>
+                  <SelectContent><SelectItem value={NONE}>Inget rum</SelectItem>{HOME_SUBCATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+            )}
           </div>
           <div className="mt-8 space-y-1">
             <Label htmlFor="desc" className="text-base font-semibold">Beskrivning</Label>
             <Textarea id="desc" ref={descRef} className="task-sheet-field min-h-20 resize-none rounded-[20px] py-3" value={description} maxLength={1000} onChange={(e) => setDescription(e.target.value)} />
           </div>
           <div className="mt-8 space-y-1">
-            <Label htmlFor="new-item" className="text-base font-semibold">Lista</Label>
+            <Label htmlFor="new-item" className="text-base font-semibold">Checklista</Label>
             {items.length > 0 && <ul className="py-1 pl-4">
               {items.map((it, i) => <li key={it.id} className="flex min-h-7 items-center gap-2 text-base">
                 <span aria-hidden="true" className="h-5 w-5 shrink-0 rounded-full border-2 border-task-ink" />
                 <span className="min-w-0 flex-1 break-words">{it.text}</span>
-                <Button type="button" variant="ghost" size="icon" aria-label={`Ta bort ${it.text}`} className="h-7 w-10 text-task-ink [&_svg]:size-6" onClick={() => setItems(items.filter((_, j) => j !== i))}><X /></Button>
+                <Button type="button" variant="ghost" size="icon" aria-label={`Ta bort ${it.text}`} className="h-8 w-10 text-task-ink focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_svg]:size-6" onClick={() => setItems(items.filter((_, j) => j !== i))}><X /></Button>
               </li>)}
             </ul>}
             <div className="flex gap-2">
-              <Input id="new-item" className="task-sheet-field flex-1" value={newItem} maxLength={200} onChange={(e) => setNewItem(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addItem(); } }} />
+              <Input id="new-item" aria-label="Ny punkt i checklistan" placeholder="Lägg till punkt..." className="task-sheet-field flex-1" value={newItem} maxLength={200} onChange={(e) => setNewItem(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addItem(); } }} />
               <Button type="button" className={pillButton} onClick={addItem}>Lägg till</Button>
             </div>
           </div>
@@ -153,10 +180,10 @@ export function CreateTaskDialog({ open, onOpenChange, task }: { open: boolean; 
           <div className="mt-2 space-y-1">
             <Label htmlFor="related" className="text-base font-semibold">Relaterade uppgifter</Label>
             <Popover>
-              <PopoverTrigger asChild><Button id="related" type="button" variant="ghost" className="task-sheet-field w-full justify-between font-normal hover:bg-task-field"><span className="truncate">{related.length ? `${related.length} valda` : "Ingen"}</span><ChevronDown /></Button></PopoverTrigger>
+              <PopoverTrigger asChild><Button id="related" type="button" variant="ghost" className="task-sheet-field w-full justify-between font-normal hover:bg-task-field focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><span className="truncate">{related.length ? `${related.length} valda` : "Ingen"}</span><ChevronDown /></Button></PopoverTrigger>
               <PopoverContent className="max-h-48 w-[var(--radix-popover-trigger-width)] overflow-y-auto bg-task-field text-task-ink">
                 {open_.length === 0 && <p className="text-sm">Inga uppgifter</p>}
-                {open_.map((t) => <label key={t.id} className="flex items-center gap-2 py-2 text-sm"><SamboCheckbox checked={related.includes(t.id)} onCheckedChange={(c) => setRelated(c ? [...related, t.id] : related.filter((x) => x !== t.id))} /><span className="break-words">{t.title}</span></label>)}
+                {open_.map((t) => <label key={t.id} className="flex items-center gap-2 py-2 text-sm cursor-pointer"><SamboCheckbox checked={related.includes(t.id)} onCheckedChange={(c) => setRelated(c ? [...related, t.id] : related.filter((x) => x !== t.id))} /><span className="break-words">{t.title}</span></label>)}
               </PopoverContent>
             </Popover>
           </div>
