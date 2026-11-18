@@ -29,14 +29,14 @@ export function Page({ title, children }: { title: string; children: ReactNode }
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32">
       <header className="sticky top-0 z-30 -mx-4 mb-4 bg-background px-4 pb-1 pt-3 text-center">
         <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto max-w-[calc(100%-6rem)] object-contain" />
-        <button onClick={() => setConfirmLogout(true)} aria-label="Logga ut" className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full">
+        <button onClick={() => setConfirmLogout(true)} aria-label="Logga ut" className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full">
           <img src={logoutIcon.url} alt="" width={24} height={24} className="h-6 w-6" />
         </button>
         <h1 className="text-xl font-bold uppercase">{title}</h1>
         <button
           onClick={actions.toggleProfile}
           aria-label={`Aktiv profil: ${profile}. Byt profil`}
-          className="absolute right-0 top-1 h-10 w-10 rounded-full"
+          className="absolute right-4 top-4 h-10 w-10 rounded-full"
         >
           <img src={profile === "M" ? profilM.url : profilJ.url} alt={profile} width={40} height={40} className="h-10 w-10" />
         </button>
