@@ -11,7 +11,7 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
   const related = task ? tasks.filter((t) => task.relatedIds.includes(t.id)) : [];
   return (
     <Sheet open={!!task} onOpenChange={(o) => !o && onClose()}>
-      <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-2xl">
+      <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto rounded-t-2xl [&>button]:text-task-ink [&>button]:opacity-100 [&>button]:data-[state=open]:bg-transparent [&>button>svg]:size-6">
         {task && (
           <>
             <SheetHeader>
