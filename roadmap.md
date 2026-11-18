@@ -8,3 +8,4 @@
 - [x] Match the new-task form to the supplied screenshots and verify creation.
 - [x] Keep Save floating 16px from dialog edges and the dialog 16px above the bottom edge.
 - [x] Show all statistics using pie charts and verify with saved household data.
+- [x] Statistics: "Per person" and "Per kategori" rows swipe sideways, one card at a time
