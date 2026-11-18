@@ -36,7 +36,7 @@ export function CardSwiper({ children, label }: { children: ReactNode; label: st
     el.scrollBy({ left: dir * el.clientWidth, behavior: "smooth" });
   };
 
-  const arrow = "absolute top-[140px] z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-card text-primary shadow-task-field transition-opacity duration-200 disabled:pointer-events-none disabled:opacity-0";
+  const arrow = "absolute top-[140px] z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-primary text-profile-letter shadow-task-field transition-opacity duration-200 disabled:pointer-events-none disabled:opacity-0";
 
   return (
     <div className="relative">
