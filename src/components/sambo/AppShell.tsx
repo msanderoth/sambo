@@ -23,8 +23,8 @@ export function Page({ title, children }: { title: string; children: ReactNode }
   const navigate = useNavigate();
   const signOut = async () => { await actions.signOut(); await navigate({ to: "/auth", search: { redirect: undefined }, replace: true }); };
   return (
-    <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-3">
-      <header className="relative mb-4 text-center">
+    <div className="mx-auto min-h-screen max-w-md px-4 pb-32">
+      <header className="sticky top-0 z-30 -mx-4 mb-4 bg-background px-4 pb-1 pt-3 text-center">
         <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto max-w-[calc(100%-6rem)] object-contain" />
         <button onClick={signOut} aria-label="Logga ut" className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full">
           <img src={logoutIcon.url} alt="" width={24} height={24} className="h-6 w-6" />
