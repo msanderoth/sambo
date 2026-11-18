@@ -145,6 +145,13 @@ textarea.task-sheet-field {
 }
 textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .task-sheet-field::placeholder { color: var(--task-ink); }
+.task-sheet-date {
+  padding-right: 40px;
+}
+.task-sheet-date::-webkit-date-and-time-value {
+  text-align: left;
+  margin-inline: 0;
+}
 .task-sheet-date::-webkit-calendar-picker-indicator { opacity: 0; width: 20px; cursor: pointer; }
 
 @layer base {

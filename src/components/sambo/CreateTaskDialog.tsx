@@ -113,7 +113,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
             <div className="min-w-0 space-y-1">
               <Label htmlFor="due" className="text-base font-semibold">Slutdatum</Label>
               <div className="relative">
-                <Input id="due" className="task-sheet-field task-sheet-date pr-4" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                <Input id="due" className="task-sheet-field task-sheet-date" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
                 <CalendarMonthIcon aria-hidden="true" className="pointer-events-none absolute right-4 top-2 h-6 w-6" />
               </div>
             </div>
