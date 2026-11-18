@@ -19,6 +19,18 @@ export const UntimedTasksIcon = (p: P) => <svg {...base} {...p}><path d="M10.6 1
 export const ChevronLeftIcon = (p: P) => <svg {...base} {...p}><path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" /></svg>;
 export const ChevronRightIcon = (p: P) => <svg {...base} {...p}><path d="M12.6 12L8 7.4L9.4 6L15.4 12L9.4 18L8 16.6L12.6 12Z" /></svg>;
 
+export const CheckboxCircleIcon = (p: P) => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden {...p}>
+    <rect x="1" y="1" width="18" height="18" rx="9" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
+export const CheckboxFilledIcon = (p: P) => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden {...p}>
+    <rect x="1" y="1" width="18" height="18" rx="9" fill="currentColor" />
+    <rect x="1" y="1" width="18" height="18" rx="9" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
+
 export function CategoryIcon({ category, className }: { category?: string; className?: string }) {
   const I = category === "Hem" ? HomeIcon : category === "Bil" ? CarIcon : category === "Event" ? EventIcon : category === "Resa" ? TravelIcon : CategoriesIcon;
   return <I className={className} />;

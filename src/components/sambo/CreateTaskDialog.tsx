@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { SamboCheckbox } from "@/components/sambo/SamboCheckbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { actions, uid, useSambo } from "@/lib/sambo-store";
@@ -134,7 +134,7 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
               <PopoverTrigger asChild><Button id="related" type="button" variant="ghost" className="task-sheet-field w-full justify-between font-normal hover:bg-task-field"><span className="truncate">{related.length ? `${related.length} valda` : "Ingen"}</span><ChevronDown /></Button></PopoverTrigger>
               <PopoverContent className="max-h-48 w-[var(--radix-popover-trigger-width)] overflow-y-auto bg-task-field text-task-ink">
                 {open_.length === 0 && <p className="text-sm">Inga uppgifter</p>}
-                {open_.map((t) => <label key={t.id} className="flex items-center gap-2 py-2 text-sm"><Checkbox checked={related.includes(t.id)} onCheckedChange={(c) => setRelated(c ? [...related, t.id] : related.filter((x) => x !== t.id))} /><span className="break-words">{t.title}</span></label>)}
+                {open_.map((t) => <label key={t.id} className="flex items-center gap-2 py-2 text-sm"><SamboCheckbox checked={related.includes(t.id)} onCheckedChange={(c) => setRelated(c ? [...related, t.id] : related.filter((x) => x !== t.id))} /><span className="break-words">{t.title}</span></label>)}
               </PopoverContent>
             </Popover>
           </div>
