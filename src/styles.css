@@ -146,6 +146,17 @@ textarea.task-sheet-field {
 textarea.task-sheet-field::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .task-sheet-field::placeholder { color: var(--task-ink); }
 .task-sheet-date {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
   padding-right: 40px;
 }
 .task-sheet-date::-webkit-date-and-time-value {
