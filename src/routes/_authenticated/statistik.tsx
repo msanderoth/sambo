@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/statistik")({
 
 const PEOPLE: Profile[] = ["M", "J"];
 function Stats() {
-  const { points, tasks } = useSambo();
+  const { points } = useSambo();
   const total = (p: Profile) => points.filter((e) => e.profile === p).reduce((s, e) => s + e.points, 0);
   const totals: [number, number] = [total("M"), total("J")];
   const cats = Array.from(new Set(points.map((e) => e.category)));
@@ -23,14 +23,10 @@ function Stats() {
         <StatsPie title="Poängfördelning" unit="p" slices={PEOPLE.map((p) => ({ label: p, value: total(p) }))} />
       </Section>
       <Section title="Per person">
-        <div className="space-y-5">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {PEOPLE.map((p) => (
-            <div key={p} className="space-y-3">
-              <h3 className="font-bold">{p}</h3>
-              <StatsPie title="Uppgifter" unit="st" slices={[
-                { label: "Skapade", value: tasks.filter((t) => t.createdBy === p).length },
-                { label: "Slutförda", value: tasks.filter((t) => t.completedBy === p).length },
-              ]} />
+            <div key={p} className="w-full shrink-0 snap-center">
+              <StatsPie title={`${p} · poäng per kategori`} unit="p" slices={cats.map((c) => ({ label: c, value: points.filter((e) => e.category === c && e.profile === p).reduce((s, e) => s + e.points, 0) }))} />
             </div>
           ))}
         </div>

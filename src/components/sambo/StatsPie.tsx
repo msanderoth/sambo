@@ -5,7 +5,7 @@ interface Slice { label: string; value: number }
 
 export function StatsPie({ title, slices, unit }: { title: string; slices: Slice[]; unit: string }) {
   const total = slices.reduce((sum, slice) => sum + slice.value, 0);
-  const data = slices.map((slice, index) => ({ ...slice, fill: `var(--chart-${index + 1})` }));
+  const data = slices.map((slice, index) => ({ ...slice, fill: `var(--chart-${(index % 5) + 1})` }));
   return (
     <figure className="min-w-0 space-y-3 rounded-lg bg-card p-4">
       <figcaption className="font-semibold">{title}</figcaption>
@@ -26,7 +26,7 @@ export function StatsPie({ title, slices, unit }: { title: string; slices: Slice
       <ul className="space-y-2 text-sm">
         {slices.map((slice, index) => (
           <li key={slice.label} className="flex items-center gap-2">
-            <span className={`h-3 w-3 shrink-0 rounded-full ${index === 0 ? "bg-chart-1" : "bg-chart-2"}`} />
+            <span className="h-3 w-3 shrink-0 rounded-full" style={{ background: `var(--chart-${(index % 5) + 1})` }} />
             <span className="min-w-0 flex-1 break-words">{slice.label}</span>
             <span className="shrink-0 font-semibold tabular-nums">{slice.value} {unit}</span>
             <span className="w-10 shrink-0 text-right text-muted-foreground tabular-nums">{total ? Math.round(slice.value / total * 100) : 0}%</span>
