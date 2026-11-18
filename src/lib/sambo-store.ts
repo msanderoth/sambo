@@ -33,6 +33,11 @@ function start() {
   const saved = localStorage.getItem(PROFILE_KEY);
   if (saved === "J" || saved === "M") state = { ...state, profile: saved };
   void refresh();
+  // A different household may sign in on this device: reload or clear its data.
+  supabase.auth.onAuthStateChange((event) => {
+    if (event === "SIGNED_OUT") set({ tasks: [], points: [], customCategories: [] });
+    else if (event === "SIGNED_IN") void refresh();
+  });
   const ch = supabase.channel(`sambo-${Math.random().toString(36).slice(2)}`);
   for (const table of ["tasks", "point_events", "custom_categories"]) {
     ch.on("postgres_changes", { event: "*", schema: "public", table }, () => void refresh());
@@ -66,6 +71,10 @@ function patchTask(id: string, f: (t: Task) => Task) {
 }
 
 export const actions = {
+  async signOut() {
+    await supabase.auth.signOut();
+    set({ tasks: [], points: [], customCategories: [] });
+  },
   toggleProfile() {
     const profile: Profile = state.profile === "M" ? "J" : "M";
     localStorage.setItem(PROFILE_KEY, profile);

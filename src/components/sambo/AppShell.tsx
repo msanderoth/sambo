@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { TimedTasksIcon as CalendarClock, UntimedTasksIcon as ClipboardCheck, ShoppingListsIcon as ListChecks, CategoriesIcon as LayoutGrid, HistoryIcon as History } from "./icons";
 import { Plus } from "lucide-react";
 import { actions, useSambo } from "@/lib/sambo-store";
@@ -7,6 +7,7 @@ import { CreateTaskDialog } from "./CreateTaskDialog";
 import samboLogo from "@/assets/sambo-logo.svg.asset.json";
 import profilM from "@/assets/profil-m.svg.asset.json";
 import profilJ from "@/assets/profil-j.svg.asset.json";
+import logoutIcon from "@/assets/logout.svg.asset.json";
 
 const NAV = [
   { to: "/", icon: CalendarClock, label: "Tidsbegränsat" },
@@ -19,10 +20,15 @@ const NAV = [
 export function Page({ title, children }: { title: string; children: ReactNode }) {
   const { profile } = useSambo();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const signOut = async () => { await actions.signOut(); await navigate({ to: "/auth", search: { redirect: undefined }, replace: true }); };
   return (
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-3">
       <header className="relative mb-4 text-center">
         <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto max-w-[calc(100%-6rem)] object-contain" />
+        <button onClick={signOut} aria-label="Logga ut" className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full">
+          <img src={logoutIcon.url} alt="" width={24} height={24} className="h-6 w-6" />
+        </button>
         <h1 className="text-xl font-bold uppercase">{title}</h1>
         <button
           onClick={actions.toggleProfile}

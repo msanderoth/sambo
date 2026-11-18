@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { actions, useSambo } from "@/lib/sambo-store";
 import { CATEGORIES, HOME_SUBCATEGORIES } from "@/lib/sambo-logic";
 
-export const Route = createFileRoute("/kategorier")({
+export const Route = createFileRoute("/_authenticated/kategorier")({
   head: () => ({ meta: [{ title: "Kategorier – SAMBO" }, { name: "description", content: "Se uppgifter per kategori: hem, bil, event och resa." }, { property: "og:title", content: "Kategorier – SAMBO" }, { property: "og:description", content: "Se uppgifter per kategori: hem, bil, event och resa." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Categories,
 });

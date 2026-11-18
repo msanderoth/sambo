@@ -17,15 +17,70 @@ export type Database = {
       custom_categories: {
         Row: {
           created_at: string
+          household_id: string | null
           name: string
         }
         Insert: {
           created_at?: string
+          household_id?: string | null
           name: string
         }
         Update: {
           created_at?: string
+          household_id?: string | null
           name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_categories_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      household_members: {
+        Row: {
+          created_at: string
+          household_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          household_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          household_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_members_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      households: {
+        Row: {
+          created_at: string
+          id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          username?: string
         }
         Relationships: []
       }
@@ -33,6 +88,7 @@ export type Database = {
         Row: {
           at: string
           category: string
+          household_id: string | null
           id: string
           kind: string
           points: number
@@ -41,6 +97,7 @@ export type Database = {
         Insert: {
           at?: string
           category: string
+          household_id?: string | null
           id?: string
           kind: string
           points: number
@@ -49,40 +106,60 @@ export type Database = {
         Update: {
           at?: string
           category?: string
+          household_id?: string | null
           id?: string
           kind?: string
           points?: number
           profile?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "point_events_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tasks: {
         Row: {
           created_at: string
           data: Json
+          household_id: string | null
           id: string
           updated_at: string
         }
         Insert: {
           created_at?: string
           data: Json
+          household_id?: string | null
           id: string
           updated_at?: string
         }
         Update: {
           created_at?: string
           data?: Json
+          household_id?: string | null
           id?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tasks_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      current_household: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never

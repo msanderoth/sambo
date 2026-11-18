@@ -6,7 +6,7 @@ import { TaskDetail } from "@/components/sambo/TaskDetail";
 import { useSambo } from "@/lib/sambo-store";
 import { isStarted, showsOnBacklog } from "@/lib/sambo-logic";
 
-export const Route = createFileRoute("/backlog")({
+export const Route = createFileRoute("/_authenticated/backlog")({
   head: () => ({ meta: [{ title: "Backlog – SAMBO" }, { name: "description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:title", content: "Backlog – SAMBO" }, { property: "og:description", content: "Uppgifter utan slutdatum, uppdelat i påbörjat och ej påbörjat." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Backlog,
 });

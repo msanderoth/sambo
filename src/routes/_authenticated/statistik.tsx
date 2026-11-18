@@ -5,7 +5,7 @@ import { useSambo } from "@/lib/sambo-store";
 import type { Profile } from "@/lib/sambo-logic";
 import { StatsPie } from "@/components/sambo/StatsPie";
 
-export const Route = createFileRoute("/statistik")({
+export const Route = createFileRoute("/_authenticated/statistik")({
   head: () => ({ meta: [{ title: "Statistik – SAMBO" }, { name: "description", content: "Se vem som gjort mest, totalt och per kategori." }, { property: "og:title", content: "Statistik – SAMBO" }, { property: "og:description", content: "Se vem som gjort mest, totalt och per kategori." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Stats,
 });

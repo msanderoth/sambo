@@ -9,128 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as BacklogRouteImport } from './routes/backlog'
-import { Route as InkopslistorRouteImport } from './routes/inkopslistor'
-import { Route as KategorierRouteImport } from './routes/kategorier'
-import { Route as StatistikRouteImport } from './routes/statistik'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedBacklogRouteImport } from './routes/_authenticated/backlog'
+import { Route as AuthenticatedInkopslistorRouteImport } from './routes/_authenticated/inkopslistor'
+import { Route as AuthenticatedKategorierRouteImport } from './routes/_authenticated/kategorier'
+import { Route as AuthenticatedStatistikRouteImport } from './routes/_authenticated/statistik'
 
-const IndexRoute = IndexRouteImport.update({
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const BacklogRoute = BacklogRouteImport.update({
+const AuthenticatedBacklogRoute = AuthenticatedBacklogRouteImport.update({
   id: '/backlog',
   path: '/backlog',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const InkopslistorRoute = InkopslistorRouteImport.update({
-  id: '/inkopslistor',
-  path: '/inkopslistor',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KategorierRoute = KategorierRouteImport.update({
+const AuthenticatedInkopslistorRoute =
+  AuthenticatedInkopslistorRouteImport.update({
+    id: '/inkopslistor',
+    path: '/inkopslistor',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKategorierRoute = AuthenticatedKategorierRouteImport.update({
   id: '/kategorier',
   path: '/kategorier',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const StatistikRoute = StatistikRouteImport.update({
+const AuthenticatedStatistikRoute = AuthenticatedStatistikRouteImport.update({
   id: '/statistik',
   path: '/statistik',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/backlog': typeof BacklogRoute
-  '/inkopslistor': typeof InkopslistorRoute
-  '/kategorier': typeof KategorierRoute
-  '/statistik': typeof StatistikRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRoute
+  '/backlog': typeof AuthenticatedBacklogRoute
+  '/inkopslistor': typeof AuthenticatedInkopslistorRoute
+  '/kategorier': typeof AuthenticatedKategorierRoute
+  '/statistik': typeof AuthenticatedStatistikRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/backlog': typeof BacklogRoute
-  '/inkopslistor': typeof InkopslistorRoute
-  '/kategorier': typeof KategorierRoute
-  '/statistik': typeof StatistikRoute
+  '/auth': typeof AuthRoute
+  '/backlog': typeof AuthenticatedBacklogRoute
+  '/inkopslistor': typeof AuthenticatedInkopslistorRoute
+  '/kategorier': typeof AuthenticatedKategorierRoute
+  '/statistik': typeof AuthenticatedStatistikRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/backlog': typeof BacklogRoute
-  '/inkopslistor': typeof InkopslistorRoute
-  '/kategorier': typeof KategorierRoute
-  '/statistik': typeof StatistikRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/backlog': typeof AuthenticatedBacklogRoute
+  '/_authenticated/inkopslistor': typeof AuthenticatedInkopslistorRoute
+  '/_authenticated/kategorier': typeof AuthenticatedKategorierRoute
+  '/_authenticated/statistik': typeof AuthenticatedStatistikRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik'
+  fullPaths:
+    '/' | '/auth' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik'
+  to:
+    '/auth' | '/backlog' | '/inkopslistor' | '/kategorier' | '/statistik' | '/'
   id:
     | '__root__'
-    | '/'
-    | '/backlog'
-    | '/inkopslistor'
-    | '/kategorier'
-    | '/statistik'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/backlog'
+    | '/_authenticated/inkopslistor'
+    | '/_authenticated/kategorier'
+    | '/_authenticated/statistik'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  BacklogRoute: typeof BacklogRoute
-  InkopslistorRoute: typeof InkopslistorRoute
-  KategorierRoute: typeof KategorierRoute
-  StatistikRoute: typeof StatistikRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/backlog': {
-      id: '/backlog'
+    '/_authenticated/backlog': {
+      id: '/_authenticated/backlog'
       path: '/backlog'
       fullPath: '/backlog'
-      preLoaderRoute: typeof BacklogRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedBacklogRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/inkopslistor': {
-      id: '/inkopslistor'
+    '/_authenticated/inkopslistor': {
+      id: '/_authenticated/inkopslistor'
       path: '/inkopslistor'
       fullPath: '/inkopslistor'
-      preLoaderRoute: typeof InkopslistorRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedInkopslistorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/kategorier': {
-      id: '/kategorier'
+    '/_authenticated/kategorier': {
+      id: '/_authenticated/kategorier'
       path: '/kategorier'
       fullPath: '/kategorier'
-      preLoaderRoute: typeof KategorierRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedKategorierRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/statistik': {
-      id: '/statistik'
+    '/_authenticated/statistik': {
+      id: '/_authenticated/statistik'
       path: '/statistik'
       fullPath: '/statistik'
-      preLoaderRoute: typeof StatistikRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedStatistikRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedBacklogRoute: typeof AuthenticatedBacklogRoute
+  AuthenticatedInkopslistorRoute: typeof AuthenticatedInkopslistorRoute
+  AuthenticatedKategorierRoute: typeof AuthenticatedKategorierRoute
+  AuthenticatedStatistikRoute: typeof AuthenticatedStatistikRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedBacklogRoute: AuthenticatedBacklogRoute,
+  AuthenticatedInkopslistorRoute: AuthenticatedInkopslistorRoute,
+  AuthenticatedKategorierRoute: AuthenticatedKategorierRoute,
+  AuthenticatedStatistikRoute: AuthenticatedStatistikRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  BacklogRoute: BacklogRoute,
-  InkopslistorRoute: InkopslistorRoute,
-  KategorierRoute: KategorierRoute,
-  StatistikRoute: StatistikRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
