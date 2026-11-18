@@ -93,6 +93,9 @@ export const actions = {
     void saveTask(task).then(() => addPoints(ev));
     return task;
   },
+  updateTask(id: string, updates: Omit<Task, "id" | "createdAt" | "createdBy" | "completedAt" | "completedBy">) {
+    patchTask(id, (t) => ({ ...t, ...updates }));
+  },
   toggleItem(taskId: string, itemId: string) {
     patchTask(taskId, (t) => ({ ...t, items: t.items.map((i) => (i.id === itemId ? { ...i, done: !i.done } : i)) }));
   },

@@ -9,3 +9,7 @@
 - [x] Keep Save floating 16px from dialog edges and the dialog 16px above the bottom edge.
 - [x] Show all statistics using pie charts and verify with saved household data.
 - [x] Statistics: "Per person" and "Per kategori" rows swipe sideways, one card at a time
+- [x] Add an edit button beside Delete in the task panel
+- [x] Confirm task deletion with "Vill du ta bort uppgiften?" and Tillbaka / Ta bort
+- [x] Reuse the new-task form for editing with all existing values prefilled
+- [x] Verify create, edit, cancel-delete and confirm-delete in the signed-in preview

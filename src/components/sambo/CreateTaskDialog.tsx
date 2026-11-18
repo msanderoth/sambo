@@ -12,19 +12,19 @@ import { SamboCheckbox } from "@/components/sambo/SamboCheckbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { actions, uid, useSambo } from "@/lib/sambo-store";
-import { CATEGORIES, HOME_SUBCATEGORIES, RECURRENCE_LABELS, CREATE_POINTS, type RecurrenceKind, type TaskType } from "@/lib/sambo-logic";
+import { CATEGORIES, HOME_SUBCATEGORIES, RECURRENCE_LABELS, CREATE_POINTS, type ListItem, type RecurrenceKind, type Task, type TaskType } from "@/lib/sambo-logic";
 
 const titleSchema = z.string().trim().min(1, "Titel krävs").max(120);
 const NONE = "__none";
 
-export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function CreateTaskDialog({ open, onOpenChange, task }: { open: boolean; onOpenChange: (o: boolean) => void; task?: Task | null }) {
   const { tasks, customCategories } = useSambo();
   const [title, setTitle] = useState("");
   const [type, setType] = useState<TaskType>("task");
   const [category, setCategory] = useState(NONE);
   const [sub, setSub] = useState(NONE);
   const [description, setDescription] = useState("");
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<ListItem[]>([]);
   const [newItem, setNewItem] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [rec, setRec] = useState<string>(NONE);
@@ -42,34 +42,56 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
     el.style.height = `${Math.max(80, el.scrollHeight + border)}px`;
   }, [description, open]);
 
+  useEffect(() => {
+    if (!open || !task) return;
+    setTitle(task.title);
+    setType(task.type);
+    setCategory(task.category ?? NONE);
+    setSub(task.subcategory ?? NONE);
+    setDescription(task.description ?? "");
+    setItems(task.items.map((item) => ({ ...item })));
+    setNewItem("");
+    setDueDate(task.dueDate ?? "");
+    setRec(task.recurrence?.kind ?? NONE);
+    setDays(task.recurrence?.days ?? 7);
+    setRelated([...task.relatedIds]);
+    setError("");
+  }, [open, task]);
+
   const reset = () => { setTitle(""); setType("task"); setCategory(NONE); setSub(NONE); setDescription(""); setItems([]); setNewItem(""); setDueDate(""); setRec(NONE); setDays(7); setRelated([]); setError(""); };
-  const addItem = () => { if (newItem.trim()) { setItems([...items, newItem.trim()]); setNewItem(""); } document.getElementById("new-item")?.focus(); };
+  const addItem = () => { if (newItem.trim()) { setItems([...items, { id: uid(), text: newItem.trim(), done: false }]); setNewItem(""); } document.getElementById("new-item")?.focus(); };
 
   const submit = () => {
     const r = titleSchema.safeParse(title);
     if (!r.success) { setError(r.error.issues[0]?.message ?? "Titel krävs"); return; }
     const kind = rec === NONE ? undefined : (rec as RecurrenceKind);
-    actions.createTask({
+    const values = {
       title: r.data, type,
       category: category === NONE ? undefined : category,
       subcategory: category === "Hem" && sub !== NONE ? sub : undefined,
       description: description.trim() || undefined,
-      items: (newItem.trim() ? [...items, newItem.trim()] : items).map((text) => ({ id: uid(), text, done: false })),
+      items: newItem.trim() ? [...items, { id: uid(), text: newItem.trim(), done: false }] : items,
       dueDate: dueDate || undefined,
       recurrence: kind ? { kind, days: kind === "custom" || kind === "after_completion" ? days : undefined } : undefined,
       relatedIds: related,
-    });
-    toast.success(`Uppgift skapad! +${CREATE_POINTS} poäng`);
+    };
+    if (task) {
+      actions.updateTask(task.id, values);
+      toast.success("Uppgift uppdaterad!");
+    } else {
+      actions.createTask(values);
+      toast.success(`Uppgift skapad! +${CREATE_POINTS} poäng`);
+    }
     reset(); onOpenChange(false);
   };
 
-  const open_ = tasks.filter((t) => !t.completedAt);
+  const open_ = tasks.filter((t) => t.id !== task?.id && (!t.completedAt || task?.relatedIds.includes(t.id)));
   const pillButton = "h-10 rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90";
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent aria-describedby={undefined} className="task-sheet top-auto bottom-0 block max-h-[calc(100dvh-140px)] w-full max-w-md translate-y-0 gap-0 overflow-clip rounded-t-[20px] sm:bottom-4 sm:rounded-[20px] border-0 bg-task-sheet p-0 text-task-ink shadow-none sm:max-h-[calc(100dvh-32px)] [&>.dialog-dismiss]:top-4 [&>.dialog-dismiss]:opacity-100 [&>.dialog-dismiss>svg]:size-6">
         <div className="max-h-[calc(100dvh-140px)] overflow-y-auto px-4 pb-4 pt-5 sm:max-h-[calc(100dvh-32px)]">
-        <DialogHeader className="mb-7 sm:text-center"><DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">Ny uppgift</DialogTitle></DialogHeader>
+        <DialogHeader className="mb-7 sm:text-center"><DialogTitle className="text-center text-xl font-bold uppercase tracking-normal">{task ? "Redigera uppgift" : "Ny uppgift"}</DialogTitle></DialogHeader>
         <form id="create-task-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
           <div className="space-y-2">
             <Label htmlFor="title" className="text-base font-semibold">Titel</Label>
@@ -98,10 +120,10 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
           <div className="mt-8 space-y-1">
             <Label htmlFor="new-item" className="text-base font-semibold">Lista</Label>
             {items.length > 0 && <ul className="py-1 pl-4">
-              {items.map((it, i) => <li key={i} className="flex min-h-7 items-center gap-2 text-base">
+              {items.map((it, i) => <li key={it.id} className="flex min-h-7 items-center gap-2 text-base">
                 <span aria-hidden="true" className="h-5 w-5 shrink-0 rounded-full border-2 border-task-ink" />
-                <span className="min-w-0 flex-1 break-words">{it}</span>
-                <Button type="button" variant="ghost" size="icon" aria-label={`Ta bort ${it}`} className="h-7 w-10 text-task-ink [&_svg]:size-6" onClick={() => setItems(items.filter((_, j) => j !== i))}><X /></Button>
+                <span className="min-w-0 flex-1 break-words">{it.text}</span>
+                <Button type="button" variant="ghost" size="icon" aria-label={`Ta bort ${it.text}`} className="h-7 w-10 text-task-ink [&_svg]:size-6" onClick={() => setItems(items.filter((_, j) => j !== i))}><X /></Button>
               </li>)}
             </ul>}
             <div className="flex gap-2">
