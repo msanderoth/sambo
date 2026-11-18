@@ -1,0 +1,1 @@
+ALTER TABLE public.custom_categories REPLICA IDENTITY FULL;

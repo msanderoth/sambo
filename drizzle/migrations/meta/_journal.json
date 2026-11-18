@@ -15,6 +15,13 @@
       "when": 1795003683553,
       "tag": "0001_households_auth",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795004861715,
+      "tag": "0002_custom_categories_replica_identity",
+      "breakpoints": true
     }
   ]
 }

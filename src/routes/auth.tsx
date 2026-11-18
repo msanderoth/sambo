@@ -52,7 +52,7 @@ function AuthPage() {
         const p = signupSchema.safeParse({ username, email, password });
         if (!p.success) return setError(p.error.issues[0]?.message ?? "Kontrollera fälten");
         const { data, error } = await supabase.auth.signUp({ email: p.data.email, password: p.data.password, options: { emailRedirectTo: window.location.origin, data: { username: p.data.username } } });
-        if (error) return setError(error.message.includes("Database error") ? "Användarnamnet är redan taget" : error.message);
+        if (error) return setError(/already registered/i.test(error.message) ? "E-postadressen används redan" : /weak|pwned/i.test(error.message) ? "Lösenordet är för lätt att gissa, välj ett annat" : error.message.includes("Database error") ? "Användarnamnet är upptaget eller ogiltigt" : error.message);
         if (data.session) await done();
         else { setInfo("Kolla din e-post och klicka på länken för att bekräfta kontot. Sedan kan du logga in."); setMode("in"); }
       }
