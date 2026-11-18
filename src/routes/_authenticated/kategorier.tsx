@@ -49,7 +49,7 @@ function Categories() {
         ))}
         {adding ? (
           <form className={tile + " border-2 border-primary px-3"} onSubmit={(e) => { e.preventDefault(); actions.addCategory(name.slice(0, 40)); setName(""); setAdding(false); }}>
-            <Input autoFocus value={name} maxLength={40} placeholder="Namn" onChange={(e) => setName(e.target.value)} />
+            <Input autoFocus value={name} maxLength={40} placeholder="Namn" className="task-sheet-field w-full" onChange={(e) => setName(e.target.value)} />
             <Button size="sm" type="submit">Spara</Button>
           </form>
         ) : (
