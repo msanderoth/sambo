@@ -138,9 +138,11 @@ export function CreateTaskDialog({ open, onOpenChange }: { open: boolean; onOpen
               </PopoverContent>
             </Popover>
           </div>
+          <div className="mt-8 flex justify-end">
+            <Button type="submit" className={pillButton}>Spara</Button>
+          </div>
         </form>
         </div>
-        <Button type="submit" form="create-task-form" className={`${pillButton} absolute bottom-4 right-4 z-10`}>Spara</Button>
       </DialogContent>
     </Dialog>
   );
