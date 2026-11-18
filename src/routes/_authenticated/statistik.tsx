@@ -32,10 +32,12 @@ function Stats() {
         </div>
       </Section>
       <Section title="Per kategori">
-        <div className="space-y-3">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {cats.length === 0 && <p>Ingen statistik ännu.</p>}
           {cats.map((c) => (
-            <StatsPie key={c} title={c} unit="p" slices={PEOPLE.map((p) => ({ label: p, value: points.filter((e) => e.category === c && e.profile === p).reduce((s, e) => s + e.points, 0) }))} />
+            <div key={c} className="w-full shrink-0 snap-center">
+              <StatsPie title={c} unit="p" slices={PEOPLE.map((p) => ({ label: p, value: points.filter((e) => e.category === c && e.profile === p).reduce((s, e) => s + e.points, 0) }))} />
+            </div>
           ))}
         </div>
       </Section>
