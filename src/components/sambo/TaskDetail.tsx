@@ -43,11 +43,11 @@ export function TaskDetail({ taskId, onClose }: { taskId: string | null; onClose
               {task.completedAt ? (
                 <p className="text-sm">Slutförd av {task.completedBy}</p>
               ) : (
-                <Button className="w-full" onClick={() => { actions.completeTask(task.id); toast.success(`+${completionPoints(task)} poäng till ${profile}!`); onClose(); }}>
+                <Button className="h-10 w-full rounded-full bg-task-ink px-4 text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90" onClick={() => { actions.completeTask(task.id); toast.success(`+${completionPoints(task)} poäng till ${profile}!`); onClose(); }}>
                   Slutför (+{completionPoints(task)} poäng)
                 </Button>
               )}
-              <Button variant="ghost" className="w-full" onClick={() => { actions.deleteTask(task.id); onClose(); }}>Ta bort</Button>
+              <Button variant="ghost" className="h-10 w-full rounded-full bg-task-field px-4 text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink" onClick={() => { actions.deleteTask(task.id); onClose(); }}>Ta bort</Button>
             </div>
           </>
         )}
