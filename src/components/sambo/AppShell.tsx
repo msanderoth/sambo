@@ -2,6 +2,8 @@ import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { TimedTasksIcon as CalendarClock, UntimedTasksIcon as ClipboardCheck, ShoppingListsIcon as ListChecks, CategoriesIcon as LayoutGrid, HistoryIcon as History } from "./icons";
 import { Plus } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { actions, useSambo } from "@/lib/sambo-store";
 import { CreateTaskDialog } from "./CreateTaskDialog";
 import samboLogo from "@/assets/sambo-logo.svg.asset.json";
@@ -20,13 +22,14 @@ const NAV = [
 export function Page({ title, children }: { title: string; children: ReactNode }) {
   const { profile } = useSambo();
   const [open, setOpen] = useState(false);
+  const [confirmLogout, setConfirmLogout] = useState(false);
   const navigate = useNavigate();
-  const signOut = async () => { await actions.signOut(); await navigate({ to: "/auth", search: { redirect: undefined }, replace: true }); };
+  const signOut = async () => { setConfirmLogout(false); await actions.signOut(); await navigate({ to: "/auth", search: { redirect: undefined }, replace: true }); };
   return (
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32">
       <header className="sticky top-0 z-30 -mx-4 mb-4 bg-background px-4 pb-1 pt-3 text-center">
         <img src={samboLogo.url} alt="SAMBO" width={123} height={40} className="mx-auto h-12 w-auto max-w-[calc(100%-6rem)] object-contain" />
-        <button onClick={signOut} aria-label="Logga ut" className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full">
+        <button onClick={() => setConfirmLogout(true)} aria-label="Logga ut" className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full">
           <img src={logoutIcon.url} alt="" width={24} height={24} className="h-6 w-6" />
         </button>
         <h1 className="text-xl font-bold uppercase">{title}</h1>
@@ -52,6 +55,29 @@ export function Page({ title, children }: { title: string; children: ReactNode }
         ))}
       </nav>
       <CreateTaskDialog open={open} onOpenChange={setOpen} />
+      <Dialog open={confirmLogout} onOpenChange={setConfirmLogout}>
+        <DialogContent
+          aria-describedby={undefined}
+          className="w-[calc(100%-2rem)] max-w-xs gap-0 rounded-[20px] border-0 bg-task-sheet p-6 text-task-ink shadow-none sm:rounded-[20px] [&>.dialog-dismiss]:hidden"
+        >
+          <DialogTitle className="text-center text-xl font-bold">Vill du logga ut?</DialogTitle>
+          <div className="mt-6 flex gap-2">
+            <Button
+              variant="ghost"
+              className="h-10 flex-1 rounded-full bg-task-field text-base font-normal text-task-ink shadow-task-field hover:bg-task-field/80 hover:text-task-ink"
+              onClick={() => setConfirmLogout(false)}
+            >
+              Gå tillbaka
+            </Button>
+            <Button
+              className="h-10 flex-1 rounded-full bg-task-ink text-base font-normal text-task-field shadow-task-field hover:bg-task-ink/90"
+              onClick={signOut}
+            >
+              Logga ut
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
