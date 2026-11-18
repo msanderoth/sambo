@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { completionPoints, nextDueDate, dueGroup, showsOnTimed, showsOnBacklog, type Task } from "./sambo-logic";
 
 const task = (over: Partial<Task>): Task => ({
-  id: "x", title: "t", type: "task", items: [], relatedIds: [], createdBy: "Minna", createdAt: "2026-11-17T10:00:00Z",
+  id: "x", title: "t", type: "task", items: [], relatedIds: [], createdBy: "M", createdAt: "2026-11-17T10:00:00Z",
   ...over,
 });
 

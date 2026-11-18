@@ -5,7 +5,7 @@ import { CREATE_POINTS, completionPoints, nextDueDate, type PointEvent, type Pro
 // Tasks, points and categories are shared via Lovable Cloud; the active profile stays per device.
 interface State { profile: Profile; tasks: Task[]; points: PointEvent[]; customCategories: string[]; ready: boolean }
 const PROFILE_KEY = "sambo-profile";
-const empty: State = { profile: "Minna", tasks: [], points: [], customCategories: [], ready: false };
+const empty: State = { profile: "M", tasks: [], points: [], customCategories: [], ready: false };
 let state: State = empty;
 let started = false;
 const listeners = new Set<() => void>();
@@ -31,7 +31,7 @@ function start() {
   if (started || typeof window === "undefined") return;
   started = true;
   const saved = localStorage.getItem(PROFILE_KEY);
-  if (saved === "Joel" || saved === "Minna") state = { ...state, profile: saved };
+  if (saved === "J" || saved === "M") state = { ...state, profile: saved };
   void refresh();
   const ch = supabase.channel(`sambo-${Math.random().toString(36).slice(2)}`);
   for (const table of ["tasks", "point_events", "custom_categories"]) {
@@ -67,7 +67,7 @@ function patchTask(id: string, f: (t: Task) => Task) {
 
 export const actions = {
   toggleProfile() {
-    const profile: Profile = state.profile === "Minna" ? "Joel" : "Minna";
+    const profile: Profile = state.profile === "M" ? "J" : "M";
     localStorage.setItem(PROFILE_KEY, profile);
     set({ profile });
   },

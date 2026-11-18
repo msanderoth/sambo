@@ -1,5 +1,5 @@
 export type TaskType = "task" | "list" | "shopping";
-export type Profile = "Minna" | "Joel";
+export type Profile = "M" | "J";
 export type RecurrenceKind =
   | "daily" | "weekly" | "monthly" | "quarterly" | "yearly" | "after_completion" | "custom";
 export interface Recurrence { kind: RecurrenceKind; days?: number | undefined }

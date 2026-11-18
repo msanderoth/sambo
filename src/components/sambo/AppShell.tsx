@@ -29,7 +29,7 @@ export function Page({ title, children }: { title: string; children: ReactNode }
           aria-label={`Aktiv profil: ${profile}. Byt profil`}
           className="absolute right-0 top-1 h-10 w-10 rounded-full"
         >
-          <img src={profile === "Minna" ? profilM.url : profilJ.url} alt={profile} width={40} height={40} className="h-10 w-10" />
+          <img src={profile === "M" ? profilM.url : profilJ.url} alt={profile} width={40} height={40} className="h-10 w-10" />
         </button>
       </header>
       <main className="space-y-6">{children}</main>

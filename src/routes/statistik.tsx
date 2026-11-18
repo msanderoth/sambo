@@ -10,13 +10,13 @@ export const Route = createFileRoute("/statistik")({
   component: Stats,
 });
 
-const PEOPLE: Profile[] = ["Minna", "Joel"];
+const PEOPLE: Profile[] = ["M", "J"];
 function Stats() {
   const { points, tasks } = useSambo();
   const total = (p: Profile) => points.filter((e) => e.profile === p).reduce((s, e) => s + e.points, 0);
-  const totals: [number, number] = [total("Minna"), total("Joel")];
+  const totals: [number, number] = [total("M"), total("J")];
   const cats = Array.from(new Set(points.map((e) => e.category)));
-  const leader = totals[0] === totals[1] ? "Lika!" : totals[0] > totals[1] ? "Minna leder" : "Joel leder";
+  const leader = totals[0] === totals[1] ? "Lika!" : totals[0] > totals[1] ? "M leder" : "J leder";
   return (
     <Page title="Statistik">
       <Section title={`Totalt · ${leader}`}>
