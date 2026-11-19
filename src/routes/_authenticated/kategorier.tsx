@@ -23,7 +23,7 @@ function Categories() {
   const [sel, setSel] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState("");
-  const tile = "flex h-32 flex-col items-center justify-center gap-2 rounded-lg bg-card transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  const tile = "flex h-32 flex-col items-center justify-center gap-2 rounded-lg bg-card shadow-task-field transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
   if (cat) {
     const list = tasks.filter((t) => t.category === cat && !t.completedAt);

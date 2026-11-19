@@ -7,7 +7,7 @@ export function StatsPie({ title, slices, unit }: { title: string; slices: Slice
   const total = slices.reduce((sum, slice) => sum + slice.value, 0);
   const data = slices.map((slice, index) => ({ ...slice, fill: `var(--chart-${(index % 5) + 1})` }));
   return (
-    <figure className="min-w-0 space-y-3 rounded-lg bg-card p-4">
+    <figure className="min-w-0 space-y-3 rounded-lg bg-card p-4 shadow-task-field">
       <figcaption className="font-semibold">{title}</figcaption>
       <div className="relative mx-auto h-44 w-44">
         <ChartContainer
