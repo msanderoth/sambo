@@ -1,28 +1,90 @@
-# SAMBO Together
+# SAMBO – Håll koll på vardagen tillsammans
 
-Här är de 5 sidorna som ska finnas i min nya webapp SAMBO. Syftet med appen är att göra det lättare för mig och min sambo att hålla ordning på vad som behöver göras när i vårt liv. Huvudfunktionen är att kunna skapa uppgifter av saker som behöver göras. Dessa uppgifter kan vara antingen en simpel task, en lista av saker att göra eller en inköpslista. När man skapar en uppgift är den enda obligatoriska inställningen att välja en titel. Utöver det kan man välja kategori, lägga till beskrivning, lägga till listor, lägga till slutdatum och göra uppgiften återkommande i olika intervall. De intervallen är dagligen, veckovis, månadsvis, kvartalsvis, årligen, efter avslutad uppgift och eget intervall där man får göra ett custom intervall. De olika kategorierna är hem, bil, event och resa. Under hem finns underkategorierna kök, badrum, vardagsrum, kontor, sovrum, hall och förråd. Det går också att ställa in att olika uppgifter är relaterade till varandra: exempelvis en uppgift som är beroende av en inköpslista.
+SAMBO är en webbapp skapad för att göra det enkelt och roligt för sambor att organisera sitt gemensamma liv. Genom att samla sysslor, projekt och inköp på ett ställe – och belöna avklarade uppgifter med poäng – blir det lättare att hjälpas åt och få överblick över hushållets ansvarsfördelning.
 
-När man trycker på cirkeln med ett M uppe i högra hörnet byter man profil från Minna till Joel. Bokstaven byts då från M till J. När man skapar och slutför uppgifter får man poäng beroende på hur omfattande uppgiften är och dessa poäng är kopplade till den profilen som är aktiv just då. Detta sammanställs till statistik under statistikfliken där man kan se vem som gjort mest totalt, personspecifik statistik för vad en person gjort och hur mycket varje person gjort inom olika kategorier.
+## Vad appen är till för
 
-Börja bygga SAMBO med de fem vyerna och funktionen för att skapa uppgifter.
+- **Gemensam överblick:** Håll koll på allt från veckohandling och städning till bilbesiktning och semesterplaner i realtid mellan era enheter.
+- **Tydlig ansvarsfördelning:** Skapa enkla sysslor, detaljerade checklistor eller inköpslistor med deadlines och återkommande intervall.
+- **Lekfull motivation:** Varje skapad och avklarad uppgift ger poäng till den aktiva profilen, vilket sammanställs i visuell statistik.
+
+## Så använder du appen
+
+### 1. Inloggning och hushåll
+
+När du öppnar SAMBO loggar du in på ert gemensamma hushållskonto med användarnamn (eller den kopplade e-postadressen) och lösenord. All data synkas automatiskt mellan era telefoner och datorer.
+
+### 2. Växla profil
+
+Uppe i det högra hörnet växlar du snabbt aktiv profil mellan **M** (Minna) och **J** (Joel) med ett enkelt tryck. Den profil som är vald får poängen när uppgifter skapas och slutförs.
+
+### 3. De fem vyerna
+
+Navigera mellan appens sidor i menyraden längst ner:
+
+- **Tidsbegränsat:** Uppgifter och inköpslistor som har ett satt slutdatum, sorterade med tydliga etiketter som _Idag_, _Imorgon_ eller veckodag.
+- **Backlog:** Hushållets alla öppna uppgifter och projekt samlade på ett ställe (exklusive rena inköpslistor).
+- **Inköpslistor:** Alla era inköpslistor med snabb avbockning för varor och saker som ska handlas.
+- **Kategorier:** Filtrera uppgifter efter områden: _Hem_ (med rum som kök, badrum, sovrum m.fl.), _Bil_, _Event_, _Resa_ eller egna tillagda kategorier.
+- **Statistik:** Cirkeldiagram som visar total poängfördelning, prestation per person samt hur mycket poäng ni samlat inom respektive kategori.
+
+### 4. Skapa och hantera uppgifter
+
+- Tryck på den runda **plusknappen (+)** nere till höger för att skapa en ny uppgift eller inköpslista.
+- Fyll i titel (obligatoriskt), kategori, beskrivning, listpunkter, eventuellt slutdatum, upprepningsintervall eller koppla till relaterade uppgifter.
+- Tryck på ett kort för att se detaljer, bocka av listpunkter, redigera eller markera som slutförd.
+- Uppe till vänster loggar du ut från hushållet på den enhet du använder.
+
+## Kom igång lokalt (utveckling)
+
+Vill du köra eller vidareutveckla SAMBO på din egen dator?
+
+### Förutsättningar
+
+- [Node.js](https://nodejs.org/) (version 18 eller senare) eller [Bun](https://bun.sh/)
+- npm eller bun
+
+### Installation och start
+
+1. Klona projektet:
+
+   ```sh
+   git clone <repo-url>
+   cd <repository-name>
+   ```
+
+2. Installera beroenden:
+
+   ```sh
+   npm install
+   # eller
+   bun install
+   ```
+
+3. Starta utvecklingsservern:
+
+   ```sh
+   npm run dev
+   # eller
+   bun run dev
+   ```
+
+4. Öppna webbläsaren på [http://localhost:8080](http://localhost:8080).
+
+### Tester och kvalitet
+
+```sh
+npm run test      # kör enhetstester (vitest)
+npm run lint      # kör eslint
+npm run build     # byggproduktion
+```
+
+## Byggd med Lovable
 
 This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3f384260-88e4-418b-b6e0-c305ed6bb7ce).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
 - **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
