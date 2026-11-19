@@ -1,6 +1,6 @@
 # SAMBO – Håll koll på vardagen tillsammans
 
-SAMBO är en webbapp skapad för att göra det enkelt och roligt för sambor att organisera sitt gemensamma liv. Genom att samla sysslor, projekt och inköp på ett ställe – och belöna avklarade uppgifter med poäng – blir det lättare att hjälpas åt och få överblick över hushållets ansvarsfördelning.
+SAMBO är en webbapp skapad för att göra det enkelt och roligt för sambor att organisera sitt gemensamma liv. Genom att samla sysslor, projekt och inköp på ett ställe och belöna avklarade uppgifter med poäng blir det lättare att hjälpas åt och få överblick över hushållets ansvarsfördelning.
 
 ## Vad appen är till för
 
