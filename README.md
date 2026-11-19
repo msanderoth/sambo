@@ -76,7 +76,7 @@ Vill du köra eller vidareutveckla SAMBO på din egen dator?
 ```sh
 npm run test      # kör enhetstester (vitest)
 npm run lint      # kör eslint
-npm run build     # byggproduktion
+npm run build     # bygg för produktion
 ```
 
 ## Byggd med Lovable
