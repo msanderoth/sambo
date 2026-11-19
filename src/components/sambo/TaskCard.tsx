@@ -12,7 +12,7 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (t: Task) => vo
     <button
       type="button"
       onClick={() => onOpen(task)}
-      className="w-full rounded-lg bg-card p-3 text-left text-card-foreground transition hover:brightness-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="w-full rounded-lg bg-card p-3 shadow-task-field text-left text-card-foreground transition hover:brightness-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="flex items-start justify-between gap-2">
         <span className="text-lg font-bold leading-tight">{task.title}</span>

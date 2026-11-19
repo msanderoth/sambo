@@ -49,7 +49,7 @@ export function Page({ title, children }: { title: string; children: ReactNode }
       <button
         onClick={() => setOpen(true)}
         aria-label="Ny uppgift"
-        className="fixed bottom-24 right-[max(1rem,calc(50%-12rem))] z-20 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="fixed bottom-24 right-[max(1rem,calc(50%-12rem))] z-20 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-task-field focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         <Plus className="h-8 w-8 text-profile-letter" />
       </button>
