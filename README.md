@@ -16,7 +16,7 @@ När du öppnar SAMBO loggar du in på ert gemensamma hushållskonto med använd
 
 ### 2. Växla profil
 
-Uppe i det högra hörnet växlar du snabbt aktiv profil mellan **M** (Minna) och **J** (Joel) med ett enkelt tryck. Den profil som är vald får poängen när uppgifter skapas och slutförs.
+Uppe i det högra hörnet växlar du snabbt aktiv profil mellan **M** och **J** med ett enkelt tryck. Den profil som är vald får poängen när uppgifter skapas och slutförs.
 
 ### 3. De fem vyerna
 
@@ -25,7 +25,7 @@ Navigera mellan appens sidor i menyraden längst ner:
 - **Tidsbegränsat:** Uppgifter och inköpslistor som har ett satt slutdatum, sorterade med tydliga etiketter som _Idag_, _Imorgon_ eller veckodag.
 - **Backlog:** Hushållets alla öppna uppgifter och projekt samlade på ett ställe (exklusive rena inköpslistor).
 - **Inköpslistor:** Alla era inköpslistor med snabb avbockning för varor och saker som ska handlas.
-- **Kategorier:** Filtrera uppgifter efter områden: _Hem_ (med rum som kök, badrum, sovrum m.fl.), _Bil_, _Event_, _Resa_ eller egna tillagda kategorier.
+- **Kategorier:** Filtrera uppgifter efter områden: _Hem_, _Bil_, _Event_, _Resa_ eller egna tillagda kategorier.
 - **Statistik:** Cirkeldiagram som visar total poängfördelning, prestation per person samt hur mycket poäng ni samlat inom respektive kategori.
 
 ### 4. Skapa och hantera uppgifter
