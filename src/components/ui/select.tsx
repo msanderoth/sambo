@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckIcon as Check, ExpandMoreIcon as ChevronDown, ExpandLessIcon as ChevronUp } from "@/components/sambo/icons";
 
 import { cn } from "@/lib/utils";
 

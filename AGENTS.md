@@ -33,7 +33,8 @@ use the editor.
 - Task logic (points, recurrence, due grouping) lives in pure functions in src/lib/sambo-logic.ts with tests; the store only applies them. Why: rules stay testable.
 - Shared household data (tasks, points, categories) lives in Lovable Cloud with open access and live updates; the active profile is per device. Why: no login was requested.
 - Task creation uses a scrollable bottom-sheet dialog with scoped field tokens; existing creation actions remain unchanged. Why: match the supplied form designs without altering shared data rules.
-- Statistics use a shared Recharts pie view with semantic chart tokens and visible values; presentation preserves existing totals. Why: consistent readable charts without changing point rules.
+- Statistics use a shared plain-SVG pie view (no chart library) with semantic chart tokens and visible values; presentation preserves existing totals. Why: consistent readable charts without changing point rules, and a small bundle.
+- Icons live in src/components/sambo/icons.tsx and dates use Intl; no icon or date libraries. Why: keep the bundle light.
 
 ## Säkerhetsregler
 - Läs aldrig .env eller andra filer med nycklar.

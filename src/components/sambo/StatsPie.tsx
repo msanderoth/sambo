@@ -1,32 +1,38 @@
 /**
- * StatsPie – cirkeldiagram (Recharts) för statistik, färger från --chart-1..5.
+ * StatsPie – cirkeldiagram (ringdiagram) i ren SVG för statistik, färger från --chart-1..5.
+ * Inga diagrambibliotek: varje del ritas som en cirkelbåge med stroke-dasharray.
  * Se DESIGN_SYSTEM.md -> Komponenter.
  */
-import { Cell, Pie, PieChart } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-
 interface Slice { label: string; value: number }
+
+const R = 34; // radie i viewBox 0 0 100 100
+const C = 2 * Math.PI * R;
 
 export function StatsPie({ title, slices, unit }: { title: string; slices: Slice[]; unit: string }) {
   const total = slices.reduce((sum, slice) => sum + slice.value, 0);
-  const data = slices.map((slice, index) => ({ ...slice, fill: `var(--chart-${(index % 5) + 1})` }));
+  let offset = 0;
   return (
     <figure className="min-w-0 space-y-3 rounded-lg bg-card p-4 shadow-task-field">
       <figcaption className="font-semibold">{title}</figcaption>
       <div className="relative mx-auto h-44 w-44">
-        <ChartContainer
+        <svg
+          viewBox="0 0 100 100"
+          className="h-full w-full -rotate-90"
           role="img"
-          config={{ value: { label: unit } }}
-          className="h-full w-full aspect-square"
           aria-label={`${title}: ${slices.map((s) => `${s.label} ${s.value} ${unit}`).join(", ")}`}
         >
-          <PieChart>
-            <Pie data={total ? data : [{ label: "Ingen statistik ännu", value: 1, fill: "var(--background)" }]} dataKey="value" nameKey="label" innerRadius={55} outerRadius={82} stroke="var(--card)" strokeWidth={3} isAnimationActive={false}>
-              {(total ? data : [{ fill: "var(--background)" }]).map((slice, index) => <Cell key={index} fill={slice.fill} />)}
-            </Pie>
-            {total > 0 && <ChartTooltip content={<ChartTooltipContent hideLabel formatter={(value, name) => <span>{name}: {value} {unit}</span>} />} />}
-          </PieChart>
-        </ChartContainer>
+          <circle cx="50" cy="50" r={R} fill="none" stroke="var(--background)" strokeWidth="18" />
+          {total > 0 && slices.map((slice, index) => {
+            const len = (slice.value / total) * C;
+            const el = slice.value > 0 && (
+              <circle key={slice.label} cx="50" cy="50" r={R} fill="none" stroke={`var(--chart-${(index % 5) + 1})`} strokeWidth="18" strokeDasharray={`${len} ${C - len}`} strokeDashoffset={-offset}>
+                <title>{`${slice.label}: ${slice.value} ${unit}`}</title>
+              </circle>
+            );
+            offset += len;
+            return el;
+          })}
+        </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center" aria-hidden="true">
           <span className="text-2xl font-bold tabular-nums">{total}</span>
           <span className="text-xs text-muted-foreground">{unit}</span>

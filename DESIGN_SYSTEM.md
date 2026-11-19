@@ -36,11 +36,12 @@ Skala: sidrubrik `text-2xl font-bold`, sektionsrubrik `text-lg font-medium`, kor
 - Fokusram: 2 px lila, bara vid tangentbordsnavigering (`:focus-visible`).
 
 ## 4. Ikoner
-Alla i `src/components/sambo/icons.tsx`, 24×24, färg via `text-*`.
+Alla i `src/components/sambo/icons.tsx` (egna SVG:er, inget ikonbibliotek), 24×24, färg via `text-*`.
 - Formulär: `CalendarMonthIcon`, `AddBoxIcon`
 - Kategorier: `HomeIcon`, `CarIcon`, `EventIcon`, `TravelIcon`, `CategoriesIcon` (+ `CategoryIcon`-hjälpare)
 - Navigering: `TimedTasksIcon`, `UntimedTasksIcon`, `ShoppingListsIcon`, `HistoryIcon`
 - Pilar: `ChevronLeftIcon`, `ChevronRightIcon`
+- Gränssnitt: `CloseIcon`, `PlusIcon`, `ExpandMoreIcon`, `ExpandLessIcon`, `CheckIcon`, `ArrowBackIcon` (används även i `ui/`-primitiverna)
 - Checkbox (20×20): `CheckboxCircleIcon`, `CheckboxFilledIcon`
 
 ## 5. Komponenter
@@ -53,9 +54,11 @@ Alla i `src/components/sambo/icons.tsx`, 24×24, färg via `text-*`.
 | `TaskDetail` | Detaljpanel för uppgift |
 | `SamboCheckbox` | Rund lila checkbox |
 | `CardSwiper` | Kort i sidled med pilar |
-| `StatsPie` | Cirkeldiagram |
+| `StatsPie` | Cirkeldiagram i ren SVG (inget diagrambibliotek) |
 
-**Basprimitiver** (`src/components/ui/`): button, input, textarea, select, dialog, sheet, popover, label, chart, sonner.
+**Basprimitiver** (`src/components/ui/`): button, input, textarea, select, dialog, sheet, popover, label, sonner.
+
+Datum formateras med inbyggda `Intl.DateTimeFormat("sv-SE")` – inget datumbibliotek.
 
 ## 6. Sidor
 `src/routes/_authenticated/`: `index` (Tidsbegränsat), `backlog`, `inkopslistor`, `kategorier`, `statistik`. Inloggning: `src/routes/auth.tsx`.

@@ -3,7 +3,7 @@
  * Se DESIGN_SYSTEM.md -> Komponenter.
  */
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ExpandMoreIcon as ChevronDown, CloseIcon as X } from "./icons";
 import { z } from "zod";
 import { CalendarMonthIcon } from "./icons";
 import { toast } from "sonner";

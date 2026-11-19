@@ -3,11 +3,12 @@
  * Se DESIGN_SYSTEM.md -> Komponenter.
  */
 import { HistoryIcon as History } from "./icons";
-import { format } from "date-fns";
 import { weekdayLabel } from "@/lib/sambo-logic";
-import { sv } from "date-fns/locale";
 import type { Task } from "@/lib/sambo-logic";
 import { CategoryIcon } from "./icons";
+
+/** Fullt svenskt datum, t.ex. "3 december 2026" (inbyggt Intl, inget datumbibliotek). */
+const fullDate = new Intl.DateTimeFormat("sv-SE", { day: "numeric", month: "long", year: "numeric" });
 
 export function TaskCard({ task, onOpen }: { task: Task; onOpen: (t: Task) => void }) {
   const done = task.items.filter((i) => i.done).length;
@@ -41,7 +42,7 @@ export function TaskCard({ task, onOpen }: { task: Task; onOpen: (t: Task) => vo
             )}
           </span>
           <span className="text-center">
-            {task.dueDate && (weekdayLabel(task.dueDate, new Date()) ?? format(new Date(task.dueDate + "T00:00"), "d MMMM yyyy", { locale: sv }))}
+            {task.dueDate && (weekdayLabel(task.dueDate, new Date()) ?? fullDate.format(new Date(task.dueDate + "T00:00")))}
           </span>
           <span>
             {task.recurrence && (

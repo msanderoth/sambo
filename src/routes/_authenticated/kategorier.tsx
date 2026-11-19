@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowBackIcon as ArrowLeft } from "@/components/sambo/icons";
 import { Page } from "@/components/sambo/AppShell";
 import { TaskCard, Section, EmptyState } from "@/components/sambo/TaskCard";
 import { TaskDetail } from "@/components/sambo/TaskDetail";

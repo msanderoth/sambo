@@ -45,3 +45,11 @@ export function CategoryIcon({ category, className }: { category?: string; class
   const I = category === "Hem" ? HomeIcon : category === "Bil" ? CarIcon : category === "Event" ? EventIcon : category === "Resa" ? TravelIcon : CategoriesIcon;
   return <I className={className} />;
 }
+
+/* ── Gränssnitt (stäng, plus, pilar, bock) – ersätter tidigare ikonbibliotek ── */
+export const CloseIcon = (p: P) => <svg {...base} {...p}><path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z" /></svg>;
+export const PlusIcon = (p: P) => <svg {...base} {...p}><path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" /></svg>;
+export const ExpandMoreIcon = (p: P) => <svg {...base} {...p}><path d="M12 15.4L6 9.4L7.4 8L12 12.6L16.6 8L18 9.4L12 15.4Z" /></svg>;
+export const ExpandLessIcon = (p: P) => <svg {...base} {...p}><path d="M12 10.8L7.4 15.4L6 14L12 8L18 14L16.6 15.4L12 10.8Z" /></svg>;
+export const CheckIcon = (p: P) => <svg {...base} {...p}><path d="M9.55 18L3.85 12.3L5.275 10.875L9.55 15.15L18.725 5.975L20.15 7.4L9.55 18Z" /></svg>;
+export const ArrowBackIcon = (p: P) => <svg {...base} {...p}><path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" /></svg>;
