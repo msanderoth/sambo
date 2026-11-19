@@ -1,3 +1,7 @@
+/**
+ * StatsPie – cirkeldiagram (Recharts) för statistik, färger från --chart-1..5.
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import { Cell, Pie, PieChart } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 

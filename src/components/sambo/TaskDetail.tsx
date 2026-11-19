@@ -1,3 +1,7 @@
+/**
+ * TaskDetail – sidopanel med uppgiftens detaljer, listposter, Slutför/Ta bort/Redigera.
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";

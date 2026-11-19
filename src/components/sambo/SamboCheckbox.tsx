@@ -1,3 +1,7 @@
+/**
+ * SamboCheckbox – tillgänglig checkbox (Radix) med SAMBO-utseende: tom lila ring / fylld lila cirkel.
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import * as React from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 

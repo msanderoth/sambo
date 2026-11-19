@@ -1,3 +1,7 @@
+/**
+ * CreateTaskDialog – bottenpanel för att skapa och redigera uppgifter (titel, typ, kategori, beskrivning, lista, slutdatum, återkommande, relaterade).
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { z } from "zod";

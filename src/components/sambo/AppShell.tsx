@@ -1,3 +1,7 @@
+/**
+ * AppShell – appens ram: sticky sidhuvud (logga, utloggning, profilbyte), innehåll och bottennavigering med FAB för ny uppgift.
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { TimedTasksIcon as CalendarClock, UntimedTasksIcon as ClipboardCheck, ShoppingListsIcon as ListChecks, CategoriesIcon as LayoutGrid, HistoryIcon as History } from "./icons";

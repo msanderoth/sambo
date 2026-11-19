@@ -1,3 +1,7 @@
+/**
+ * TaskCard, Section, EmptyState – uppgiftskort i listvyer, sektionsrubrik och tomt läge.
+ * Se DESIGN_SYSTEM.md -> Komponenter.
+ */
 import { HistoryIcon as History } from "./icons";
 import { format } from "date-fns";
 import { weekdayLabel } from "@/lib/sambo-logic";
